@@ -33,12 +33,12 @@ export default function ProjectsPage() {
             {projects.map((project) => {
               if (!project) return null
               return (
-                <li key={project.slug}>
+                <li key={project.slug} className="flex">
                   <ProjectCard
                     title={project.frontmatter.title}
                     description={project.frontmatter.description}
-                    status={project.frontmatter.status}
                     slug={project.slug}
+                    icon={project.frontmatter.icon}
                     tags={project.frontmatter.tags}
                   />
                 </li>

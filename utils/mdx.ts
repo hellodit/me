@@ -17,6 +17,7 @@ export interface ProjectFrontmatter {
   status: 'active' | 'in development' | 'sold' | 'archived'
   date: string
   link?: string
+  icon?: string
   tags?: string[]
 }
 
