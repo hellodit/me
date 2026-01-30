@@ -4,10 +4,10 @@
 @layer base {
   html {
     background:
-      radial-gradient(circle at 20% 50%, rgba(45, 89, 27, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(45, 89, 27, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 40% 20%, rgba(45, 89, 27, 0.02) 0%, transparent 50%),
-      linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+      radial-gradient(circle at 20% 50%, rgba(45, 89, 27, 0.1) 0%, transparent 35%),
+      radial-gradient(circle at 80% 80%, rgba(45, 89, 27, 0.08) 0%, transparent 35%),
+      radial-gradient(circle at 40% 20%, rgba(45, 89, 27, 0.06) 0%, transparent 30%),
+      linear-gradient(135deg, #f5f7f4 0%, #fafafa 50%, #ffffff 100%);
     background-attachment: fixed;
     min-height: 100%;
   }
