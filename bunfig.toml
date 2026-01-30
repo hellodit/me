@@ -1,0 +1,15 @@
+[install]
+# Auto-install peer dependencies
+auto = true
+
+# Don't save exact versions
+exact = false
+
+# Install dev dependencies
+dev = true
+
+# Production mode
+production = false
+
+[install.scopes]
+# Scope configuration if needed
