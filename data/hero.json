@@ -1,0 +1,14 @@
+{
+  "name": "Asdita Prasetya",
+  "avatar": {
+    "src": "/avatar.png?v=3",
+    "alt": "Asdita Prasetya"
+  },
+  "greeting": "Hey, I'm",
+  "roles": ["Software Engineer", "Tech Lead", "Tech Content Creator"],
+  "location": {
+    "city": "Yogyakarta",
+    "country": "Indonesia"
+  },
+  "description": "Expertise in delivering scalable and high-performance software engineering solutions. My goal is to ensure seamless integration and long-term reliability for businesses, transforming complex technical requirements into stable, high-impact systems"
+}

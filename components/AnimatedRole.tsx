@@ -3,9 +3,13 @@
 import { useEffect, useState } from 'react'
 import { cn } from '@/utils/css'
 
-const roles = ['Software Engineer', 'Tech Lead', 'Content Creator']
+const defaultRoles = ['Software Engineer', 'Tech Lead', 'Content Creator']
 
-export function AnimatedRole() {
+interface AnimatedRoleProps {
+  roles?: string[]
+}
+
+export function AnimatedRole({ roles = defaultRoles }: AnimatedRoleProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
@@ -14,7 +18,7 @@ export function AnimatedRole() {
     }, 3000) // Change every 3 seconds
 
     return () => clearInterval(interval)
-  }, [])
+  }, [roles.length])
 
   return (
     <span className="relative inline-block align-top">
