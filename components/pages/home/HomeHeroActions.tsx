@@ -30,23 +30,15 @@ export function HomeHeroActions() {
 
   return (
     <div className="flex flex-wrap items-center gap-4">
-      <BaseButton className="min-w-33" hotkey="B" variant="primary" asChild>
+      <BaseButton className="min-w-33" hotkey="D" variant="primary" asChild>
         <a href={links.calcom} target="_blank">
-          Book a call
+          Direct Message
         </a>
       </BaseButton>
 
       <BaseButton hotkey="E" variant="secondary" asChild>
         <a href={`mailto:${links.email}`}>Send an email</a>
       </BaseButton>
-
-      {links.resume && (
-        <BaseButton hotkey="R" variant="secondary" asChild>
-          <a href={links.resume} target="_blank" rel="noopener noreferrer">
-            Download Resume
-          </a>
-        </BaseButton>
-      )}
     </div>
   )
 }
