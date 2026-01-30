@@ -1,7 +1,9 @@
 import { SectionHeader } from '@/components/SectionHeader'
-import { links } from '@/data/links'
+import profileData from '@/data/profile.json'
 
 export function HomeContact() {
+  const { links } = profileData
+
   return (
     <section>
       <SectionHeader heading="Get in touch" />

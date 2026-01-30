@@ -2,9 +2,11 @@
 
 import { useHotkeys } from 'react-hotkeys-hook'
 import { BaseButton } from '@/components/ui/BaseButton'
-import { links } from '@/data/links'
+import profileData from '@/data/profile.json'
 
 export function HomeHeroActions() {
+  const { links } = profileData
+
   useHotkeys('b', () => {
     window.open(links.calcom, '_blank')
   })

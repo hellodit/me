@@ -1,61 +1,66 @@
 import { IconHugeBluesky } from '@/components/icons/huge/IconHugeBluesky'
 import { IconHugeBookmark01 } from '@/components/icons/huge/IconHugeBookmark01'
+import { IconHugeInstagram } from '@/components/icons/huge/IconHugeInstagram'
 import { IconHugeLinkedIn01 } from '@/components/icons/huge/IconHugeLinkedIn01'
 import { IconHugeNewTwitter } from '@/components/icons/huge/IconHugeNewTwitter'
 import { IconHugeThreads } from '@/components/icons/huge/IconHugeThreads'
+import { IconHugeTiktok } from '@/components/icons/huge/IconHugeTiktok'
+import { IconHugeYoutube } from '@/components/icons/huge/IconHugeYoutube'
 import { SectionHeader } from '@/components/SectionHeader'
-import { links } from '@/data/links'
+import profileData from '@/data/profile.json'
 
-const socialLinks = [
-  {
-    label: 'X/Twitter',
-    icon: IconHugeNewTwitter,
-    href: links.social.x,
-    fill: 'fill-primary',
-  },
-  {
-    label: 'Threads',
-    icon: IconHugeThreads,
-    href: links.social.threads,
-    fill: 'fill-primary',
-  },
-  {
-    label: 'Bluesky',
-    icon: IconHugeBluesky,
-    href: links.social.bluesky,
-    fill: 'fill-[#0085dd]',
-  },
-  {
-    label: 'LinkedIn',
-    icon: IconHugeLinkedIn01,
-    href: links.social.linkedin,
-    fill: 'fill-[#0a66c2]',
-  },
-  {
-    label: 'Substack',
-    icon: IconHugeBookmark01,
-    href: links.social.substack,
-    fill: 'fill-[#fe6a09]',
-  },
-]
+const socialIcons: Record<
+  string,
+  React.ComponentType<React.SVGProps<SVGSVGElement> & { className?: string }>
+> = {
+  x: IconHugeNewTwitter,
+  threads: IconHugeThreads,
+  bluesky: IconHugeBluesky,
+  linkedin: IconHugeLinkedIn01,
+  substack: IconHugeBookmark01,
+  instagram: IconHugeInstagram,
+  youtube: IconHugeYoutube,
+  tiktok: IconHugeTiktok,
+}
+
+const socialFill: Record<string, string> = {
+  x: 'fill-primary',
+  threads: 'fill-primary',
+  bluesky: 'fill-[#0085dd]',
+  linkedin: 'fill-[#0a66c2]',
+  substack: 'fill-[#fe6a09]',
+  instagram: 'fill-primary',
+  youtube: 'fill-[#ff0000]',
+  tiktok: 'fill-primary',
+}
 
 export function HomeSocials() {
+  const { findMeOn } = profileData
+  const socialLinks = findMeOn.socials
+    .map((social) => {
+      const Icon = socialIcons[social.id]
+      if (!social.href || !Icon) return null
+      const fill = socialFill[social.id] ?? 'fill-primary'
+      return { ...social, Icon, fill }
+    })
+    .filter((link): link is NonNullable<typeof link> => link !== null)
+
   return (
     <section>
       <SectionHeader
-        heading="Find me on"
-        text="You can find me on the following social platforms:"
+        heading={findMeOn.heading}
+        text={findMeOn.text}
       />
 
       <ul className="flex flex-wrap items-center gap-2.5">
         {socialLinks.map((link) => (
-          <li className="group" key={link.label}>
+          <li className="group" key={link.id}>
             <a
               className="inline-flex items-center gap-2 px-2.5 h-6 bg-zinc-100 rounded-full outline-none font-medium text-xs text-secondary transition-all hover:bg-zinc-200/75 focus:ring-3 focus:ring-zinc-200"
               href={link.href}
               target="_blank"
             >
-              <link.icon className={`shrink-0 size-4 group-first:size-3.5 ${link.fill}`} />
+              <link.Icon className={`shrink-0 size-4 group-first:size-3.5 ${link.fill}`} />
               {link.label}
             </a>
           </li>

@@ -2,10 +2,10 @@ import Image from 'next/image'
 import { AnimatedRole } from '@/components/AnimatedRole'
 import { IconFlagIndonesia } from '@/components/icons/flags/IconFlagIndonesia'
 import { HomeHeroActions } from '@/components/pages/home/HomeHeroActions'
-import heroData from '@/data/hero.json'
+import profileData from '@/data/profile.json'
 
 export function HomeHero() {
-  const { name, avatar, greeting, roles, location, description } = heroData
+  const { name, avatar, greeting, roles, location, description } = profileData
 
   return (
     <section>

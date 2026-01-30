@@ -1,0 +1,34 @@
+{
+  "links": {
+    "email": "hello@codingtengahmalam.com",
+    "calcom": "https://cal.com/asditaprasetya",
+    "resume": "/resume.pdf",
+    "source": "https://github.com/asditaprasetya/codingtengahmalam.com",
+    "projects": {
+      "listingcat": "https://www.listingcat.com",
+      "blueskymeter": "https://blueskymeter.com"
+    }
+  },
+  "name": "Asdita Prasetya",
+  "avatar": {
+    "src": "/avatar.png?v=3",
+    "alt": "Asdita Prasetya"
+  },
+  "greeting": "Hey, I'm",
+  "roles": ["Software Engineer", "Tech Lead", "Tech Content Creator"],
+  "location": {
+    "city": "Yogyakarta",
+    "country": "Indonesia"
+  },
+  "description": "Expertise in delivering scalable and high-performance software engineering solutions. My goal is to ensure seamless integration and long-term reliability for businesses, transforming complex technical requirements into stable, high-impact systems",
+  "findMeOn": {
+    "heading": "Find me on",
+    "text": "You can find me on the following social platforms:",
+    "socials": [
+      { "id": "threads", "label": "Threads", "href": "https://www.threads.com/@codingtengahmalam" },
+      { "id": "instagram", "label": "Instagram", "href": "https://www.instagram.com/codingtengahmalam" },
+      { "id": "youtube", "label": "YouTube", "href": "https://www.youtube.com/@asditaprasetya" },
+      { "id": "tiktok", "label": "TikTok", "href": "https://www.tiktok.com/@codingtengahmalam" }
+    ]
+  }
+}

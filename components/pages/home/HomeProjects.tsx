@@ -3,7 +3,7 @@ import { LogoProjectBlueskyMeter } from '@/components/logos/projects/LogoProject
 import { LogoProjectListingCat } from '@/components/logos/projects/LogoProjectListingCat'
 import { ProjectCard } from '@/components/ProjectCard'
 import { SectionHeader } from '@/components/SectionHeader'
-import { links } from '@/data/links'
+import profileData from '@/data/profile.json'
 import type { ProjectStatusType } from '@/types/ProjectStatusType'
 
 interface Project {
@@ -14,31 +14,33 @@ interface Project {
   link?: string
 }
 
-const projects: Array<Project> = [
-  {
-    name: 'Analytics',
-    description: 'Open-source product and web analytics.',
-    status: 'in development',
-    icon: <IconAnalytics01 className="fill-inherit" />,
-    link: 'https://github.com/asditaprasetya/analytics',
-  },
-  {
-    name: 'Listing Cat',
-    description: 'Marketing database for startups and indie hackers.',
-    status: 'active',
-    icon: <LogoProjectListingCat />,
-    link: links.projects.listingcat,
-  },
-  {
-    name: 'Bluesky Meter',
-    description: 'Realtime analytics for Bluesky social network.',
-    status: 'sold',
-    icon: <LogoProjectBlueskyMeter />,
-    link: links.projects.blueskymeter,
-  },
-]
-
 export function HomeProjects() {
+  const { links } = profileData
+
+  const projects: Array<Project> = [
+    {
+      name: 'Analytics',
+      description: 'Open-source product and web analytics.',
+      status: 'in development',
+      icon: <IconAnalytics01 className="fill-inherit" />,
+      link: 'https://github.com/asditaprasetya/analytics',
+    },
+    {
+      name: 'Listing Cat',
+      description: 'Marketing database for startups and indie hackers.',
+      status: 'active',
+      icon: <LogoProjectListingCat />,
+      link: links.projects.listingcat,
+    },
+    {
+      name: 'Bluesky Meter',
+      description: 'Realtime analytics for Bluesky social network.',
+      status: 'sold',
+      icon: <LogoProjectBlueskyMeter />,
+      link: links.projects.blueskymeter,
+    },
+  ]
+
   return (
     <section className="@container/projects">
       <SectionHeader

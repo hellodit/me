@@ -1,6 +1,8 @@
 import { BaseButton } from '@/components/ui/BaseButton'
-import { links } from '@/data/links'
+import profileData from '@/data/profile.json'
 import type { Metadata } from 'next'
+
+const { links } = profileData
 
 export const metadata: Metadata = {
   title: 'Consultation - Asdita Prasetya',

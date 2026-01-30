@@ -1,9 +1,11 @@
 import { IconHugeFavourite } from '@/components/icons/huge/IconHugeFavourite'
 import { IconHugeGitFork } from '@/components/icons/huge/IconHugeGitFork'
-import { links } from '@/data/links'
+import profileData from '@/data/profile.json'
 import { cn } from '@/utils/css'
 
 export function Footer({ className }: { className?: string }) {
+  const { links } = profileData
+
   return (
     <footer
       className={cn(
