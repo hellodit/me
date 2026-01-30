@@ -4,10 +4,12 @@ import { z } from 'zod'
 
 export const env = createEnv({
   client: {
-    NEXT_PUBLIC_ENV: z.enum(['production', 'preview', 'development']),
-    NEXT_PUBLIC_BASE_URL: z.url(),
-    NEXT_PUBLIC_POSTHOG_KEY: z.string().min(1),
-    NEXT_PUBLIC_POSTHOG_HOST: z.url(),
+    NEXT_PUBLIC_ENV: z
+      .enum(['production', 'preview', 'development'])
+      .default('development'),
+    NEXT_PUBLIC_BASE_URL: z.string().url().default('http://localhost:3000'),
+    NEXT_PUBLIC_POSTHOG_KEY: z.string().optional().default(''),
+    NEXT_PUBLIC_POSTHOG_HOST: z.string().url().optional().default('https://eu.i.posthog.com'),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_ENV: process.env.NEXT_PUBLIC_ENV,
