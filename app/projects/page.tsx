@@ -1,4 +1,4 @@
-import { ProjectCardMDX } from '@/components/ProjectCardMDX'
+import { ProjectCard } from '@/components/ProjectCard'
 import { getAllProjects } from '@/utils/mdx'
 import type { Metadata } from 'next'
 
@@ -34,7 +34,13 @@ export default function ProjectsPage() {
               if (!project) return null
               return (
                 <li key={project.slug}>
-                  <ProjectCardMDX slug={project.slug} frontmatter={project.frontmatter} />
+                  <ProjectCard
+                    title={project.frontmatter.title}
+                    description={project.frontmatter.description}
+                    status={project.frontmatter.status}
+                    slug={project.slug}
+                    tags={project.frontmatter.tags}
+                  />
                 </li>
               )
             })}
