@@ -16,18 +16,18 @@ export function Footer({ className }: { className?: string }) {
       <p className="group flex items-center gap-1.5 text-sm text-tertiary sm:text-xs">
         <span>&copy; {new Date().getFullYear()} Built with</span>
         <IconHugeFavourite className="shrink-0 size-3 stroke-red-600 fill-red-600 will-change-transform transition-transform duration-300 group-hover:scale-120" />
-        <span>by Asdita</span>
+        <span>by @codingtengahmalam</span>
       </p>
 
       <p className="text-sm text-tertiary sm:text-xs">
-        This website is{' '}
+        Powered by{' '}
         <a
           className="group inline-flex items-center gap-1 font-medium text-primary"
           href={links.source}
           target="_blank"
         >
           <span className="relative inline-block after:absolute after:inset-x-0 after:-bottom-px after:h-px after:bg-accent after:transition-all after:duration-300 group-hover:after:h-0.5">
-            open source
+          ahudovich
           </span>
           <IconHugeGitFork className="shrink-0 size-3.5 fill-current" />
         </a>
