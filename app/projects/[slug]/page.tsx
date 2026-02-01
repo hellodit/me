@@ -2,7 +2,9 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import remarkBreaks from 'remark-breaks'
 import { ProjectStatus } from '@/components/ProjectStatus'
+import { markdownComponents } from '@/components/MarkdownComponents'
 import { getProjectBySlug, getProjectSlugs } from '@/utils/mdx'
 import type { Metadata } from 'next'
 
@@ -100,7 +102,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </header>
 
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+      <div className="project-content">
+        <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]} components={markdownComponents}>
+          {content}
+        </ReactMarkdown>
+      </div>
     </article>
   )
 }

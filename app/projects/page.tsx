@@ -1,4 +1,4 @@
-import { ProjectCard } from '@/components/ProjectCard'
+import { ProjectsList } from '@/components/ProjectsList'
 import { getAllProjects } from '@/utils/mdx'
 import type { Metadata } from 'next'
 
@@ -24,28 +24,7 @@ export default function ProjectsPage() {
           These are my personal projects, both past and ongoing:
         </p>
 
-        {projects.length === 0 ? (
-          <p className="text-md leading-[1.75] text-tertiary">
-            No projects available at the moment.
-          </p>
-        ) : (
-          <ul className="grid gap-3 @lg/projects">
-            {projects.map((project) => {
-              if (!project) return null
-              return (
-                <li key={project.slug} className="flex">
-                  <ProjectCard
-                    title={project.frontmatter.title}
-                    description={project.frontmatter.description}
-                    slug={project.slug}
-                    icon={project.frontmatter.icon}
-                    tags={project.frontmatter.tags}
-                  />
-                </li>
-              )
-            })}
-          </ul>
-        )}
+        <ProjectsList projects={projects} />
       </section>
     </div>
   )

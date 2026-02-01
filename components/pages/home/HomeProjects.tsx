@@ -2,8 +2,11 @@ import { ProjectsSlider } from '@/components/pages/home/ProjectsSlider'
 import { getAllProjects } from '@/utils/mdx'
 import Link from 'next/link'
 
+const MAX_PROJECTS_ON_HOME = 4
+
 export function HomeProjects() {
-  const projects = getAllProjects()
+  const allProjects = getAllProjects()
+  const projects = allProjects.slice(0, MAX_PROJECTS_ON_HOME)
 
   return (
     <section className="@container/projects">
