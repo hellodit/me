@@ -8,7 +8,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Asdita Prasetya - Software Engineer, Tech Lead & Content Creator',
   description:
-    "A Software Engineer, Tech Lead & Content Creator based in Jakarta, Indonesia. If you need a reliable developer to join your team, I'm ready to dive in.",
+    "A Software Engineer, Tech Lead & Content Creator based in Indonesia. If you need a reliable developer to join your team, I'm ready to dive in.",
   alternates: {
     canonical: '/',
   },

@@ -27,7 +27,7 @@ export function HomeHero() {
       <div className="mb-5 text-sm leading-[1.75] space-y-3 sm:text-md sm:space-y-0">
         <p>
           <span className="sm:inline-block sm:mb-1.75">
-            A <AnimatedRole roles={roles} /> based in {location.city}, <span className="sm:hidden">{location.country}. </span>
+            A <AnimatedRole roles={roles} /> based in <span className="sm:hidden">{location.country}. </span>
             <span className="hidden sm:inline-flex sm:items-center sm:gap-1.5">
               {location.country}
               <IconFlagIndonesia className="shrink-0 w-3 h-2.25 rounded-xs drop-shadow-[0_0_1px_rgba(0,0,0,0.1)]" />
