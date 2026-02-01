@@ -19,12 +19,12 @@ export function HomeHero() {
         draggable={false}
       />
 
-      <h1 className="mb-4 font-sans font-semibold text-[1.375rem] leading-7 tracking-[0.02em]">
+      <h1 className="mb-4 font-sans font-semibold text-xl leading-7 tracking-[0.02em] sm:text-[1.375rem]">
         {greeting}{' '}
         <span className="border-b-[0.09375rem] border-current text-accent">{name}</span>!
       </h1>
 
-      <div className="mb-5 text-md leading-[1.75] space-y-3 sm:space-y-0">
+      <div className="mb-5 text-sm leading-[1.75] space-y-3 sm:text-md sm:space-y-0">
         <p>
           <span className="sm:inline-block sm:mb-1.75">
             A <AnimatedRole roles={roles} /> based in {location.city}, <span className="sm:hidden">{location.country}. </span>

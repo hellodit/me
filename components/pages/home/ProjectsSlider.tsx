@@ -106,17 +106,17 @@ export function ProjectsSlider({ projects }: ProjectsSliderProps) {
         type="button"
         onClick={() => scrollBy('prev')}
         aria-label="Previous project"
-        className="absolute left-2 top-1/2 z-10 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-layout-primary bg-layout-secondary-active text-zinc-600 shadow-sm outline-none transition-colors hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-400"
+        className="absolute left-1 top-1/2 z-10 hidden size-8 -translate-y-1/2 items-center justify-center rounded-full border border-layout-primary bg-layout-secondary-active text-zinc-600 shadow-sm outline-none transition-colors hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-400 sm:left-2 sm:flex sm:size-9"
       >
-        <ChevronLeft className="size-5" />
+        <ChevronLeft className="size-4 sm:size-5" />
       </button>
       <button
         type="button"
         onClick={() => scrollBy('next')}
         aria-label="Next project"
-        className="absolute right-2 top-1/2 z-10 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-layout-primary bg-layout-secondary-active text-zinc-600 shadow-sm outline-none transition-colors hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-400"
+        className="absolute right-1 top-1/2 z-10 hidden size-8 -translate-y-1/2 items-center justify-center rounded-full border border-layout-primary bg-layout-secondary-active text-zinc-600 shadow-sm outline-none transition-colors hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-400 sm:right-2 sm:flex sm:size-9"
       >
-        <ChevronRight className="size-5" />
+        <ChevronRight className="size-4 sm:size-5" />
       </button>
       <div
         ref={scrollRef}
@@ -127,7 +127,7 @@ export function ProjectsSlider({ projects }: ProjectsSliderProps) {
           if (!project) return null
           return (
             <li key={project.slug} className="shrink-0 snap-start">
-              <div className="flex h-[170px] w-[min(85vw,320px)] min-w-[280px]">
+              <div className="flex h-[170px] w-[min(85vw,320px)] min-w-[260px] sm:min-w-[280px]">
                 <ProjectCard
                   className="h-full w-full overflow-hidden"
                   title={project.frontmatter.title}
