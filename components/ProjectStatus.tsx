@@ -10,6 +10,7 @@ const projectStatusVariants = tv({
       sold: 'bg-orange-100 text-orange-800',
       'in development': 'bg-indigo-100 text-indigo-800',
       archived: 'bg-zinc-100 text-zinc-600',
+      done: 'bg-zinc-100 text-zinc-600',
     },
   },
   defaultVariants: {
