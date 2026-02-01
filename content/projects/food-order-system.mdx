@@ -1,0 +1,72 @@
+---
+title: SprintFood Ordering System
+description: SprintFood Ordering System is a WhatsApp-based conversational commerce platform that streamlines menu browsing, product ordering, payment validation, and real-time notifications for SprintFood, a well-known Indonesian layered cake brand. This system automates the entire ordering journey directly through WhatsApp, providing a seamless and efficient experience for both customers and administrators.
+date: '2024-08-01'
+status: done
+icon: food-order-system
+link: '#'
+tags:
+  - SaaS
+  - Conversational Commerce
+  - WhatsApp Integration
+  - Go
+---
+
+
+## **Overview**
+
+The SprintFood Ordering System is a **WhatsApp-based conversational commerce platform** developed to simplify the ordering process for SprintFood products — a popular Indonesian layered cake brand.
+
+Customers can browse menus, place orders, and complete payments directly through a WhatsApp chat flow, creating a seamless shopping experience without the need to visit a website or download an app.
+
+## **Scope & Features**
+
+The system focuses on automating product ordering, payment validation, and delivery coordination through a single conversational interface.
+
+Key features include:
+
+- **WhatsApp Ordering Flow:** Enables customers to view product menus, check availability, and place orders via chat.
+- **Automated Order Processing:** Handles order creation, stock validation, and payment confirmation in real-time.
+- **Payment Integration:** Connected to **Midtrans API** for instant and secure transaction validation.
+- **E-Receipt Generation:** Automatically sends digital receipts and order summaries via WhatsApp.
+- **Admin Dashboard:** Backend management for order tracking, stock updates, and transaction history.
+- **Notification System:** Real-time updates on order status using WhatsApp templates and push notifications.
+
+## **Technology Stack & Architecture**
+
+The platform is built with a **Go (Golang)** backend to ensure high concurrency and reliability, integrated with the **WhatsApp Cloud API** for real-time conversational flow.
+
+- **Backend:** Go (Golang) using the **Echo Framework**, designed with a modular, event-driven architecture.
+- **Messaging Layer:** WhatsApp Cloud API integrated via webhook handlers in Go for real-time message processing.
+- **Database:** PostgreSQL for managing product data, order records, and transactions.
+- **Payment Gateway:** Midtrans API for payment handling and transaction verification.
+- **Infrastructure:** Dockerized services with CI/CD pipelines deployed via **GitHub Actions**.
+- **Notifications:** WhatsApp messages and OneSignal integration for order confirmations and updates.
+- **Monitoring:** Centralized logging and error tracking for system health visibility.
+
+## **Role & Responsibilities**
+
+As the **Technical Lead**, I was responsible for defining the system architecture and managing all technical decisions during the development process.
+
+Key responsibilities included:
+
+- Designing the overall backend and message flow structure.
+- Implementing the WhatsApp conversational logic and message orchestration in Go.
+- Integrating the payment gateway and ensuring transaction reliability.
+- Overseeing containerization, CI/CD pipeline, and deployment strategies.
+- Managing system performance, monitoring, and error handling in production environments.
+
+## **Impact & Results**
+
+The SprintFood Ordering System transformed the traditional ordering process into a fully automated digital experience:
+
+- Reduced manual order handling by **over 80%** through WhatsApp automation.
+- Shortened order-to-payment cycle to **under 2 minutes**.
+- Improved customer satisfaction by enabling **24/7 automated ordering**.
+- Increased daily order capacity by **more than 2×** without additional staff.
+
+## **Confidentiality Note**
+
+This section highlights selected features and architecture of the SprintFood Ordering System.
+
+Due to confidentiality and proprietary business workflows, detailed flow logic and API configurations are not publicly shared.

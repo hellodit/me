@@ -1,3 +1,4 @@
+import { ProjectStatusType } from '@/types/ProjectStatusType'
 import { readFileSync, readdirSync } from 'fs'
 import { join } from 'path'
 
@@ -14,7 +15,7 @@ export interface ArticleFrontmatter {
 export interface ProjectFrontmatter {
   title: string
   description: string
-  status: 'active' | 'in development' | 'sold' | 'archived'
+  status: ProjectStatusType
   date: string
   link?: string
   icon?: string

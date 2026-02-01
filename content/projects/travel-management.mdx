@@ -1,0 +1,74 @@
+---
+title: Travel Ticketing System
+description: The Travel Ticketing System is a SaaS solution that streamlines intercity shuttle bookings by automating reservations, payment validation, and ticket delivery—all through a WhatsApp-based conversational interface. This platform enables users to browse schedules, check seat availability, reserve tickets, and receive instant payment confirmation with e-ticket delivery, significantly reducing manual operations for both passengers and administrators.
+date: '2024-08-01'
+status: done
+icon: travel-management
+link: '#'
+tags:
+  - SaaS
+  - Ticketing
+  - WhatsApp Integration
+  - Go
+---
+
+
+## **Overview**
+
+The Travel Ticketing System is a **smart shuttle booking platform** built to simplify intercity travel reservations through a **WhatsApp-based conversational flow**.
+
+It allows users to browse schedules, reserve seats, and complete payments directly through chat — creating a fast, intuitive, and fully automated booking experience for passengers.
+
+## **Scope & Features**
+
+The system is designed to enhance the booking experience with automation, real-time updates, and operational efficiency.
+
+Key features include:
+
+- **WhatsApp Conversational Booking Flow:** End-to-end ticket reservation via WhatsApp chat, from inquiry to payment confirmation.
+- **Real-Time Seat Availability:** Live updates on schedules, seats, and routes.
+- **Automated Payment Integration:** Connected to **Midtrans API** for instant payment validation and ticket issuance.
+- **E-Ticket Generation:** Automatic PDF ticket creation and delivery via WhatsApp or email.
+- **Notifications & Alerts:** Integrated OneSignal for trip reminders and service updates.
+
+## **Technology Stack & Architecture**
+
+The system backend is fully developed using **Go (Golang)** for its concurrency efficiency and high performance, ensuring reliability even during peak booking periods.
+
+The WhatsApp conversational flow is powered by the **WhatsApp Cloud API**, allowing users to interact with the system naturally via messages.
+
+- **Backend:** Go (Golang) using **Echo Framework**, implementing a modular and event-driven architecture.
+- **Messaging Layer:** WhatsApp Cloud API integrated with Go webhooks for real-time message processing.
+- **Database:** PostgreSQL for transaction and schedule data, optimized with connection pooling.
+- **Payment Gateway:** Midtrans API for secure and automated payment verification.
+- **Infrastructure:** Dockerized microservices, CI/CD deployment via **GitHub Actions**.
+- **Notifications:**  WhatsApp templates for ticket confirmation.
+- **Monitoring:** Integrated request logging and performance tracing with Prometheus + Grafana stack.
+
+## **Role & Responsibilities**
+
+As the **Technical Lead**, I was responsible for designing the entire system architecture and leading the backend development using Go.
+
+My main responsibilities included:
+
+- Defining the overall microservice structure and communication flow.
+- Developing the WhatsApp webhook handler and conversational logic in Go.
+- Designing database schemas for booking, schedules, and payment transactions.
+- Integrating payment processing and ensuring transactional consistency.
+- Implementing observability and monitoring for system reliability.
+- Making key technical decisions regarding scalability and deployment.
+
+## **Impact & Results**
+
+The system delivered measurable improvements for both users and operators:
+
+- Reduced average booking time from **10 minutes to under 2 minutes** via WhatsApp flow.
+- Improved system throughput, handling **up to 300+ concurrent booking requests**.
+- Increased transaction completion rate by **over 50%** compared to legacy web booking.
+- Enabled 24/7 self-service ticketing without requiring human assistance.
+
+## **Confidentiality Note**
+
+This section presents selected technical and functional highlights of the Travel Ticketing System.
+
+Due to confidentiality agreements, certain API configurations and business workflows are not publicly shared.

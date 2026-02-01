@@ -1,45 +1,52 @@
 ---
-title: Analytics Platform
-description: Open-source product and web analytics platform built with Next.js and TypeScript
+title: HRApps - Managing
+description: HRApps is a multi-tenant Human Resource Management System designed to streamline employee management, attendance tracking, and payroll automation within a single integrated platform. The project aims to simplify HR operations, reduce manual workload, and ensure process accuracy across multiple business units.
+## **Scope & Features**
 date: '2024-12-01'
-status: in development
+status: done
 icon: analytics-platform
-link: https://github.com/asditaprasetya/analytics
+link: #
 tags:
-  - Next.js
-  - TypeScript
-  - Analytics
+  - Saas
+  - Internal Apps
 ---
 
-# Analytics Platform
+## **Overview**
 
-An open-source analytics platform designed to help developers track and understand user behavior on their websites.
+HRApps is a **multi-tenant Human Resource Management System** designed to streamline employee management, attendance tracking, and payroll automation within a single integrated platform. The project aims to simplify HR operations, reduce manual workload, and ensure process accuracy across multiple business units.
+## **Scope & Features**
 
-## Features
+The system includes a wide range of modules that address critical HR functions:
+- Employee & Role Management
+- Payroll Automation and Overtime Calculation
+- Attendance & Shift Scheduling
+- Leave Request Workflow
+- Document Management and Access Control
+- Multi-tenant Architecture for multiple companies within one platform
+- API Integrations with payment and analytics services
 
-- Real-time analytics
-- Custom event tracking
-- User session recording
-- Privacy-focused design
-- Open source
+## **Technology Stack & Architecture**
 
-## Tech Stack
+HRApps is built using **Laravel 12**, applying **Domain-Driven Design (DDD)** and a **modular architecture** to ensure scalability and maintainability.
 
-- Next.js 16
-- TypeScript
-- PostgreSQL
-- Prisma ORM
-- Tailwind CSS
+- **Database:** PostgreSQL for relational data, Redis for caching and job queues
+- **Infrastructure:** Docker Compose for containerized environments, deployed via GitHub Actions CI/CD
+- **Backend Design:** Service Layer and Repository Pattern for separation of business logic
+- **Architecture:** Each domain (Employee, Attendance, Payroll, Document) is isolated to support independent scaling and modular enhancements
 
-## Current Status
+## **Role & Responsibilities**
 
-The project is currently in active development. We're working on:
+I served as the **Technical Lead and Backend Architect**, responsible for:
 
-- Core tracking functionality
-- Dashboard UI
-- API endpoints
-- Documentation
+- Designing the overall system architecture and database schema
+- Implementing core modules such as attendance, payroll, and multi-tenancy
+- Leading the backend development team and conducting code reviews
+- Setting up the CI/CD deployment pipeline and API integration standards
+- Ensuring code quality and best practices aligned with Laravel standards
 
-## Getting Involved
+## **Impact & Results**
 
-Contributions are welcome! Check out the GitHub repository to get started.
+The system successfully improved HR operational efficiency across multiple client organizations:
+- Processed over **15,000 employee records** from various tenants
+- Accelerated leave approval and payroll cycles from **3 days to less than 1 day**
+- Increased system uptime and reliability through containerized deployment
