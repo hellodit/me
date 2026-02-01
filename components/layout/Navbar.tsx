@@ -6,6 +6,7 @@ import { cn } from '@/utils/css'
 
 const navItems = [
   { href: '/', label: 'Home' },
+  { href: '/services', label: 'Services' },
   { href: '/articles', label: 'Articles' },
   { href: '/projects', label: 'Projects' },
   { href: '/consultation', label: 'Consultation' },

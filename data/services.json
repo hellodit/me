@@ -1,0 +1,46 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "title": "Complete Next.js Course",
+      "thumbnail": "/services/nextjs-course.jpg",
+      "price": "Rp299.000",
+      "originalPrice": "Rp499.000"
+    },
+    {
+      "id": "2",
+      "title": "React Mastery Bundle",
+      "thumbnail": "/services/react-bundle.jpg",
+      "price": "Rp249.000",
+      "originalPrice": "Rp399.000"
+    },
+    {
+      "id": "3",
+      "title": "TypeScript Fundamentals",
+      "thumbnail": "/services/typescript-course.jpg",
+      "price": "Rp199.000",
+      "originalPrice": "Rp299.000"
+    },
+    {
+      "id": "4",
+      "title": "Full-Stack Development Guide",
+      "thumbnail": "/services/fullstack-guide.jpg",
+      "price": "Rp399.000",
+      "originalPrice": "Rp599.000"
+    },
+    {
+      "id": "5",
+      "title": "UI/UX Design System",
+      "thumbnail": "/services/ui-design-system.jpg",
+      "price": "Rp179.000",
+      "originalPrice": "Rp279.000"
+    },
+    {
+      "id": "6",
+      "title": "API Development Masterclass",
+      "thumbnail": "/services/api-masterclass.jpg",
+      "price": "Rp349.000",
+      "originalPrice": "Rp549.000"
+    }
+  ]
+}
