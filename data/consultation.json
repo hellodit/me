@@ -1,81 +1,81 @@
 {
   "header": {
-    "title": "1-on-1 Consultation with Asdita Prasetya",
+    "title": "Konsultasi 1-on-1 dengan Asdita Prasetya",
     "name": "Asdita Prasetya",
-    "role": "Full-stack Developer & Coding Mentor",
-    "description": "10+ years of experience in the tech industry. Currently working remotely and teaching at several coding platforms."
+    "role": "Software Engineer, Tech Lead, & Tech Content Creator",
+    "description": "Saya membantu engineer menyelesaikan tantangan coding nyata dengan saran jelas dan praktis dalam desain sistem, best practice, dan debugging."
   },
   "discussionTopics": [
     {
       "emoji": "💻",
-      "title": "Web Development & Coding",
-      "description": "Have questions about architecture, tech stack, or how to start a new project? I can help you design the solution."
+      "title": "Web Development, System Design & Engineering",
+      "description": "Ingin mendiskusikan arsitektur aplikasi, pemilihan tech stack, best practice pengembangan, atau scale-up sistem? Saya akan membantu Anda memahami proses engineering serta memberikan saran praktis dari perspektif Software Engineer & Tech Lead."
     },
     {
       "emoji": "🤖",
-      "title": "AI-Assisted Development",
-      "description": "I actively use AI tools for development. If you want to learn how to maximize Claude, ChatGPT, or other tools to code faster, I can share my experience and tricks."
+      "title": "Pengembangan Berbantuan AI untuk Engineer",
+      "description": "Tertarik memanfaatkan AI (seperti ChatGPT, Claude, Copilot) untuk mempercepat development, code review, atau otomatisasi proses kerja? Saya membagikan trik, pengalaman, dan workflow penggunaan AI dari aktivitas harian di industri."
+    },
+    {
+      "emoji": "⚡",
+      "title": "Troubleshooting, Debugging & Code Review",
+      "description": "Mengalami bug rumit, masalah performa, atau proses debugging yang lama? Atau ingin code review dari sudut pandang engineer berpengalaman? Sampaikan masalah atau kode Anda, kita akan breakdown, evaluasi, dan cari solusinya bersama."
     },
     {
       "emoji": "🌍",
-      "title": "Career & Remote Work",
-      "description": "Looking for direction in tech? Want to work remotely? Or thinking about a career change? I can share insights from my own journey."
-    },
-    {
-      "emoji": "🔧",
-      "title": "Stuck with a Specific Problem?",
-      "description": "Have a bug that's driving you crazy? Have code that needs review? Or a project you want to plan together? Let's discuss directly."
+      "title": "Karir, Remote Work & Tech Leadership",
+      "description": "Punya pertanyaan seputar karir di dunia teknologi, transisi ke remote work, atau tahap menjadi tech lead? Saya siap membagikan wawasan, pengalaman, dan strategi pengembangan untuk karir teknis maupun kepemimpinan."
     }
   ],
   "consultationPackages": [
     {
-      "name": "1 Hour Consultation",
-      "sessions": "1x Session • 60 minutes",
+      "name": "Konsultasi 1 Jam",
+      "sessions": "1x Sesi • 60 menit",
       "originalPrice": "Rp250.000",
       "discountedPrice": "Rp150.000",
-      "savings": "Rp100.000",
+      "savings": "Hemat Rp100.000",
       "features": [
-        "Consultation for 1 session (total 60 minutes)",
-        "Video/Audio recording after consultation",
-        "Special discount on digital products"
+        "Konsultasi untuk 1 sesi (total 60 menit)",
+        "Rekaman video/audio setelah konsultasi",
+        "Diskon khusus untuk produk digital"
       ],
       "recommended": false
     },
     {
-      "name": "2 Hour Consultation",
-      "sessions": "2x Sessions • 120 minutes",
+      "name": "Konsultasi 2 Jam",
+      "sessions": "2x Sesi • 120 menit",
       "originalPrice": "Rp500.000",
       "discountedPrice": "Rp250.000",
-      "savings": "Rp250.000",
+      "savings": "Hemat Rp250.000",
       "features": [
-        "Consultation for 2 sessions (total 120 minutes)",
-        "Video/Audio recording after consultation",
-        "Special discount on digital products"
+        "Konsultasi untuk 2 sesi (total 120 menit)",
+        "Rekaman video/audio setelah konsultasi",
+        "Diskon khusus untuk produk digital"
       ],
       "recommended": true
     }
   ],
   "schedule": {
     "slots": [
-      { "time": "Morning: 10.00-11.00 WIB" },
-      { "time": "Evening: 21.00-22.00 WIB" }
+      { "time": "Pagi: 10.00-11.00 WIB" },
+      { "time": "Malam: 21.00-22.00 WIB" }
     ],
-    "format": "Video or voice call via Google Meet (you choose what's comfortable)"
+    "format": "Video call atau voice call lewat Google Meet (pilih yang menurutmu nyaman)"
   },
   "preparation": [
-    "Questions or specific topics you want to discuss",
-    "If about a project: brief about what you're working on",
-    "If you have code to review: prepare the link or screenshot",
-    "Pen & paper or notes app—to note important points"
+    "Pertanyaan atau topik spesifik yang ingin dibahas",
+    "Jika terkait project: deskripsi singkat tentang apa yang dikerjakan",
+    "Jika ada kode untuk direview: siapkan tautan atau screenshot",
+    "Pulpen & kertas atau aplikasi catatan—untuk mencatat poin penting"
   ],
   "benefits": [
-    "Insights & advice directly from a practitioner",
-    "Concrete action plan you can implement immediately",
-    "Recording for future reference",
-    "Follow-up via chat if you need clarification"
+    "Insight & saran langsung dari praktisi",
+    "Rencana aksi konkret yang bisa langsung diterapkan",
+    "Rekaman untuk referensi ke depan",
+    "Bisa tanya lanjut via chat jika masih ada pertanyaan"
   ],
   "cta": {
-    "title": "Ready for consultation?",
-    "promoCode": "Use promo code KONSULTASI during registration"
+    "title": "Siap konsultasi sekarang?",
+    "promoCode": "Gunakan kode promo KONSULTASI saat pendaftaran"
   }
 }
