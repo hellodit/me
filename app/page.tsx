@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="mx-auto pt-6 pb-12 px-4 max-w-160 space-y-12 sm:px-6 sm:py-10 lg:px-8">
+    <div className="mx-auto pt-6 pb-12 max-w-2xl space-y-12 sm:py-10">
       <HomeHero />
       <HomeProjects />
       <HomeArticles />
