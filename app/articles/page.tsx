@@ -1,4 +1,4 @@
-import { ArticleCard } from '@/components/ArticleCard'
+import { ArticlesList } from '@/components/ArticlesList'
 import { getAllArticles } from '@/utils/mdx'
 import type { Metadata } from 'next'
 
@@ -20,22 +20,7 @@ export default function ArticlesPage() {
           Articles
         </h1>
 
-        {articles.length === 0 ? (
-          <p className="text-md leading-[1.75] text-tertiary">
-            Coming soon. Articles and blog posts will be available here.
-          </p>
-        ) : (
-          <ul className="grid gap-4">
-            {articles.map((article) => {
-              if (!article) return null
-              return (
-                <li key={article.slug}>
-                  <ArticleCard slug={article.slug} frontmatter={article.frontmatter} />
-                </li>
-              )
-            })}
-          </ul>
-        )}
+        <ArticlesList articles={articles} />
       </section>
     </div>
   )
