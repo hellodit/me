@@ -106,7 +106,7 @@ export function getArticleBySlug(slug: string) {
     const { frontmatter, body } = parseFrontmatter(fileContents)
     return {
       slug,
-      frontmatter: frontmatter as ArticleFrontmatter,
+      frontmatter: frontmatter as unknown as ArticleFrontmatter,
       content: body,
     }
   } catch {
@@ -121,7 +121,7 @@ export function getProjectBySlug(slug: string) {
     const { frontmatter, body } = parseFrontmatter(fileContents)
     return {
       slug,
-      frontmatter: frontmatter as ProjectFrontmatter,
+      frontmatter: frontmatter as unknown as ProjectFrontmatter,
       content: body,
     }
   } catch {
@@ -169,7 +169,7 @@ export function getServiceBySlug(slug: string) {
     const { frontmatter, body } = parseFrontmatter(fileContents)
     return {
       slug,
-      frontmatter: frontmatter as ServiceFrontmatter,
+      frontmatter: frontmatter as unknown as ServiceFrontmatter,
       content: body,
     }
   } catch {
