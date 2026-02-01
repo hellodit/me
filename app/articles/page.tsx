@@ -14,7 +14,7 @@ export default function ArticlesPage() {
   const articles = getAllArticles()
 
   return (
-    <div className="mx-auto pt-6 pb-12 max-w-160 space-y-12 sm:py-10">
+    <div className="pt-6 pb-12 space-y-12 sm:py-10">
       <section>
         <h1 className="mb-4 font-sans font-semibold text-[1.375rem] leading-7 tracking-[0.02em]">
           Articles

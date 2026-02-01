@@ -3,7 +3,7 @@ import { BaseButton } from '@/components/ui/BaseButton'
 
 export default function NotFound() {
   return (
-    <div className="mx-auto pt-6 pb-12 max-w-160 space-y-12 sm:py-10">
+    <div className="pt-6 pb-12 space-y-12 sm:py-10">
       <section className="flex flex-col items-center justify-center min-h-[60vh] text-center">
         <h1 className="mb-4 font-sans font-semibold text-[2rem] leading-8 tracking-[0.02em]">
           404

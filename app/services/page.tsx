@@ -14,7 +14,7 @@ export default function ServicePage() {
   const { products } = servicesData
 
   return (
-    <div className="mx-auto pt-6 pb-12 px-4 max-w-160 space-y-12 sm:px-6 sm:py-10 lg:px-8">
+    <div className="pt-6 pb-12 space-y-12 sm:py-10">
       <section>
         <h1 className="mb-4 font-sans font-semibold text-[1.375rem] leading-7 tracking-[0.02em] sm:text-xl">
           Produk Digital

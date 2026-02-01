@@ -26,7 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         className={`${geist.variable} ${geistMono.variable} px-4 h-full font-mono text-md text-primary antialiased sm:px-8`}
       >
         <Header />
-        <main>{children}</main>
+        <main className="mx-auto max-w-2xl">{children}</main>
         <Footer />
       </body>
     </html>

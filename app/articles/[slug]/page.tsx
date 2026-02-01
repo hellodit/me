@@ -113,7 +113,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const { frontmatter, content } = article
 
   return (
-    <article className="mx-auto max-w-160 pt-6 pb-12 sm:py-10">
+    <article className="pt-6 pb-12 sm:py-10">
       <header className="mb-8">
         <Link
           href="/articles"

@@ -51,7 +51,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   })
 
   return (
-    <article className="mx-auto max-w-160 pt-6 pb-12 sm:py-10">
+    <article className="pt-6 pb-12 sm:py-10">
       <header className="mb-8">
         <Link
           href="/projects"
