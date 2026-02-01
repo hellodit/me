@@ -13,7 +13,7 @@ interface ProjectCardProps {
 }
 
 const cardBaseClassName =
-  'group flex min-h-0 flex-1 flex-col rounded-lg border border-layout-primary bg-layout-secondary-active p-4 outline-none transition-all duration-300 hover:border-zinc-300 hover:ring-3 hover:ring-zinc-100 focus-visible:border-zinc-300 focus-visible:ring-3 focus-visible:ring-zinc-100'
+  'group flex min-h-0 flex-1 flex-col rounded-lg border border-layout-primary bg-layout-secondary-active p-4 outline-none transition-all duration-300 hover:border-accent hover:ring-2 hover:ring-accent/20 focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent/20'
 
 export function ProjectCard({
   title,
@@ -41,7 +41,7 @@ export function ProjectCard({
             >
               {title}
             </h3>
-            <p className="mt-1 line-clamp-4 text-sm leading-[1.6] text-tertiary">
+            <p className="mt-1 line-clamp-3 text-sm leading-[1.6] text-tertiary">
               {description}
             </p>
           </div>

@@ -1,0 +1,81 @@
+{
+  "header": {
+    "title": "1-on-1 Consultation with Asdita Prasetya",
+    "name": "Asdita Prasetya",
+    "role": "Full-stack Developer & Coding Mentor",
+    "description": "10+ years of experience in the tech industry. Currently working remotely and teaching at several coding platforms."
+  },
+  "discussionTopics": [
+    {
+      "emoji": "💻",
+      "title": "Web Development & Coding",
+      "description": "Have questions about architecture, tech stack, or how to start a new project? I can help you design the solution."
+    },
+    {
+      "emoji": "🤖",
+      "title": "AI-Assisted Development",
+      "description": "I actively use AI tools for development. If you want to learn how to maximize Claude, ChatGPT, or other tools to code faster, I can share my experience and tricks."
+    },
+    {
+      "emoji": "🌍",
+      "title": "Career & Remote Work",
+      "description": "Looking for direction in tech? Want to work remotely? Or thinking about a career change? I can share insights from my own journey."
+    },
+    {
+      "emoji": "🔧",
+      "title": "Stuck with a Specific Problem?",
+      "description": "Have a bug that's driving you crazy? Have code that needs review? Or a project you want to plan together? Let's discuss directly."
+    }
+  ],
+  "consultationPackages": [
+    {
+      "name": "1 Hour Consultation",
+      "sessions": "1x Session • 60 minutes",
+      "originalPrice": "Rp250.000",
+      "discountedPrice": "Rp150.000",
+      "savings": "Rp100.000",
+      "features": [
+        "Consultation for 1 session (total 60 minutes)",
+        "Video/Audio recording after consultation",
+        "Special discount on digital products"
+      ],
+      "recommended": false
+    },
+    {
+      "name": "2 Hour Consultation",
+      "sessions": "2x Sessions • 120 minutes",
+      "originalPrice": "Rp500.000",
+      "discountedPrice": "Rp250.000",
+      "savings": "Rp250.000",
+      "features": [
+        "Consultation for 2 sessions (total 120 minutes)",
+        "Video/Audio recording after consultation",
+        "Special discount on digital products"
+      ],
+      "recommended": true
+    }
+  ],
+  "schedule": {
+    "slots": [
+      { "time": "Morning: 10.00-11.00 WIB" },
+      { "time": "Evening: 21.00-22.00 WIB" }
+    ],
+    "format": "Video or voice call via Google Meet (you choose what's comfortable)"
+  },
+  "preparation": [
+    "Questions or specific topics you want to discuss",
+    "If about a project: brief about what you're working on",
+    "If you have code to review: prepare the link or screenshot",
+    "Pen & paper or notes app—to note important points"
+  ],
+  "benefits": [
+    "Insights & advice directly from a practitioner",
+    "Concrete action plan you can implement immediately",
+    "Recording for future reference",
+    "Follow-up via chat if you need clarification"
+  ],
+  "cta": {
+    "title": "Ready for consultation?",
+    "promoCode": "Use promo code KONSULTASI during registration"
+  }
+}

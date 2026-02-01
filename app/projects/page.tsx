@@ -29,7 +29,7 @@ export default function ProjectsPage() {
             No projects available at the moment.
           </p>
         ) : (
-          <ul className="grid gap-3 @lg/projects:grid-cols-2">
+          <ul className="grid gap-3 @lg/projects">
             {projects.map((project) => {
               if (!project) return null
               return (

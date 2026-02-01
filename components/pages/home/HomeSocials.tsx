@@ -55,7 +55,7 @@ export function HomeSocials() {
         {socialLinks.map((link) => (
           <li className="group" key={link.id}>
             <a
-              className="inline-flex items-center gap-2 px-2.5 h-6 bg-zinc-100 rounded-full outline-none font-medium text-xs text-secondary transition-all hover:bg-zinc-200/75 focus:ring-3 focus:ring-zinc-200"
+              className="inline-flex items-center gap-2 px-2.5 h-6 bg-zinc-100 rounded-full border border-transparent outline-none font-medium text-xs text-secondary transition-all duration-300 hover:border-accent hover:ring-2 hover:ring-accent/20 focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent/20"
               href={link.href}
               target="_blank"
             >

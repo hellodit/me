@@ -16,7 +16,7 @@ export function HomeProjects() {
         </div>
         <Link
           href="/projects"
-          className="group relative block rounded-lg border border-layout-primary bg-layout-secondary-active p-2 outline-none transition-colors hover:border-zinc-300 focus-visible:border-zinc-300"
+          className="group relative block rounded-lg border border-layout-primary bg-layout-secondary-active p-2 outline-none transition-all duration-300 hover:border-accent hover:ring-2 hover:ring-accent/20 focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent/20"
         >
           <span className="font-xs text-black">View Projects</span>
         </Link>

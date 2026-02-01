@@ -11,7 +11,7 @@ export function ArticleCard({ slug, frontmatter }: ArticleCardProps) {
   return (
     <Link
       href={`/articles/${slug}`}
-      className="group block p-4 bg-layout-secondary-active border border-layout-primary rounded-lg transition-all duration-300 hover:border-zinc-300 hover:ring-3 hover:ring-zinc-100 focus-visible:border-zinc-300 focus-visible:ring-3 focus-visible:ring-zinc-100"
+      className="group block p-4 bg-layout-secondary-active border border-layout-primary rounded-lg transition-all duration-300 hover:border-accent hover:ring-2 hover:ring-accent/20 focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent/20"
     >
       <h3 className="mb-2 font-medium text-md text-primary group-hover:text-accent transition-colors">
         {frontmatter.title}

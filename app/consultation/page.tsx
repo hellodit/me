@@ -1,5 +1,6 @@
 import { BaseButton } from '@/components/ui/BaseButton'
 import profileData from '@/data/profile.json'
+import consultationData from '@/data/consultation.json'
 import type { Metadata } from 'next'
 
 const { links } = profileData
@@ -12,93 +13,25 @@ export const metadata: Metadata = {
   },
 }
 
-const discussionTopics = [
-  {
-    emoji: '💻',
-    title: 'Web Development & Coding',
-    description: 'Have questions about architecture, tech stack, or how to start a new project? I can help you design the solution.',
-  },
-  {
-    emoji: '🤖',
-    title: 'AI-Assisted Development',
-    description: 'I actively use AI tools for development. If you want to learn how to maximize Claude, ChatGPT, or other tools to code faster, I can share my experience and tricks.',
-  },
-  {
-    emoji: '🌍',
-    title: 'Career & Remote Work',
-    description: 'Looking for direction in tech? Want to work remotely? Or thinking about a career change? I can share insights from my own journey.',
-  },
-  {
-    emoji: '🔧',
-    title: 'Stuck with a Specific Problem?',
-    description: 'Have a bug that\'s driving you crazy? Have code that needs review? Or a project you want to plan together? Let\'s discuss directly.',
-  },
-]
-
-const consultationPackages = [
-  {
-    name: '1 Hour Consultation',
-    sessions: '1x Session • 60 minutes',
-    originalPrice: 'Rp250.000',
-    discountedPrice: 'Rp150.000',
-    savings: 'Rp100.000',
-    features: [
-      'Consultation for 1 session (total 60 minutes)',
-      'Video/Audio recording after consultation',
-      'Special discount on digital products',
-    ],
-  },
-  {
-    name: '2 Hour Consultation',
-    sessions: '2x Sessions • 120 minutes',
-    originalPrice: 'Rp500.000',
-    discountedPrice: 'Rp250.000',
-    savings: 'Rp250.000',
-    features: [
-      'Consultation for 2 sessions (total 120 minutes)',
-      'Video/Audio recording after consultation',
-      'Special discount on digital products',
-    ],
-    recommended: true,
-  },
-]
-
-const scheduleSlots = [
-  { time: 'Morning: 10.00-11.00 WIB' },
-  { time: 'Evening: 21.00-22.00 WIB' },
-]
-
-const preparationItems = [
-  'Questions or specific topics you want to discuss',
-  'If about a project: brief about what you\'re working on',
-  'If you have code to review: prepare the link or screenshot',
-  'Pen & paper or notes app—to note important points',
-]
-
-const benefits = [
-  'Insights & advice directly from a practitioner',
-  'Concrete action plan you can implement immediately',
-  'Recording for future reference',
-  'Follow-up via chat if you need clarification',
-]
-
 export default function ConsultationPage() {
+  const { header, discussionTopics, consultationPackages, schedule, preparation, benefits, cta } = consultationData
+
   return (
     <div className="mx-auto pt-6 pb-12 max-w-160 space-y-12 sm:py-10">
       {/* Header */}
       <section>
         <h1 className="mb-4 font-sans font-semibold text-[1.375rem] leading-7 tracking-[0.02em]">
-          1-on-1 Consultation with Asdita Prasetya
+          {header.title}
         </h1>
 
         <div className="mb-8 space-y-4">
           <div>
-            <h2 className="mb-2 font-sans font-semibold text-md text-primary">Asdita Prasetya</h2>
+            <h2 className="mb-2 font-sans font-semibold text-md text-primary">{header.name}</h2>
             <p className="text-md leading-[1.75] text-tertiary">
-              Full-stack Developer & Coding Mentor
+              {header.role}
             </p>
             <p className="mt-2 text-sm leading-[1.75] text-tertiary">
-              10+ years of experience in the tech industry. Currently working remotely and teaching at several coding platforms.
+              {header.description}
             </p>
           </div>
         </div>
@@ -168,14 +101,14 @@ export default function ConsultationPage() {
       <section>
         <h2 className="mb-4 font-sans font-semibold text-md text-primary">Available Schedule</h2>
         <div className="space-y-2">
-          {scheduleSlots.map((slot) => (
+          {schedule.slots.map((slot) => (
             <p key={slot.time} className="text-md leading-[1.75] text-tertiary">
               {slot.time}
             </p>
           ))}
         </div>
         <p className="mt-4 text-sm leading-[1.75] text-tertiary">
-          Format: Video or voice call via Google Meet (you choose what&apos;s comfortable)
+          {schedule.format}
         </p>
       </section>
 
@@ -183,7 +116,7 @@ export default function ConsultationPage() {
       <section>
         <h2 className="mb-4 font-sans font-semibold text-md text-primary">Preparation Before Session</h2>
         <ul className="space-y-2">
-          {preparationItems.map((item, index) => (
+          {preparation.map((item, index) => (
             <li key={index} className="flex items-start gap-2 text-md leading-[1.75] text-tertiary">
               <span className="text-accent mt-1">•</span>
               <span>{item}</span>
@@ -208,9 +141,9 @@ export default function ConsultationPage() {
       {/* CTA */}
       <section className="pt-4">
         <div className="p-6 bg-layout-secondary-active border border-layout-primary rounded-lg text-center">
-          <h2 className="mb-2 font-sans font-semibold text-md text-primary">Ready for consultation?</h2>
+          <h2 className="mb-2 font-sans font-semibold text-md text-primary">{cta.title}</h2>
           <p className="mb-6 text-sm text-tertiary">
-            Use promo code KONSULTASI during registration
+            {cta.promoCode}
           </p>
           <BaseButton variant="primary" className="min-w-48" asChild>
             <a href={links.calcom} target="_blank">
