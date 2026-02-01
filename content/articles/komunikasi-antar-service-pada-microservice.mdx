@@ -1,0 +1,70 @@
+---
+title: "Komunikasi Antar Service pada Microservice"
+description: "Ketika kita melakukan implementasi arsitektur microservice besar kemungkinan service tidak dalam satu VM yang sama. Photo by [Christin H..."
+date: '2022-02-12'
+author: "Asdita Prasetya"
+tags:
+  - "microservices"
+  - "communication"
+---
+Ketika kita melakukan implementasi arsitektur microservice besar kemungkinan service tidak dalam satu VM yang sama.
+
+![](https://cdn-images-1.medium.com/max/1024/0*E1onAju7Y8Fdr2uQ)Photo by [Christin Hume](https://unsplash.com/@christinhumephoto?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)#### Komunikasi Monolith
+
+Aplikasi dengan arsitektur monolith keseluruhan komponen aplikasi berada pada satu codebase, hal ini menjadikan komunikasi antar komponen aplikasi terjadi pada level bahasa dengan menggunakan function calling atau pemanggilan fungsi. Dengan komunikasi pada level bahasa kecil kemungkinan terjadi kegagalan ketika antar komponen aplikasi saling berkomunikasi.
+
+#### Komunikasi Microservice
+
+Ketika kita melakukan implementasi arsitektur microservice besar kemungkinan service tidak dalam satu VM yang sama, selain itu tidak memungkinkan menggunakan komunikasi pada level bahasa karena bisa saja antar service menggunakan bahasa pemrograman yang berbeda, nah maka dari itu salah satu hal yang harus diperhatikan dalam pengembangan microservice adalah gaya komunikasi antar service.
+
+Terdapat berbagai gaya komunikasi antar service, komunikasi antar microservice dapat dikategorikan menjadi 2 dimensi:
+
+- Bagaimana cara service melakukan request dan response. bisa disebut dengan sync dan async.
+- Berapa jumlah service yang akan menerima, one to one dan one to many.
+
+![](https://cdn-images-1.medium.com/max/951/0*idfwddlcsqz3qrAm)**Request/response, **client membuat request ke server dan menunggu untuk mendapatkan balasan, komunikasi blocking, synchronous.
+
+**Notification, **client mengirim request ke server tanpa mengharapkan balasan dari server, komunikasi asynchronous
+
+**Request/async response, **client mengirim request ke service lain dan mengharapkan response tapi tidak mengharapkan response saat itu juga. Proses lain tidak akan terblokir.
+
+**Publish/subscribe, **client/producer publish message atau mengirim pesan ke semua service yang berlangganan topiknya
+
+Sebagai Engineer kita harus bisa menentukan gaya komunikasi yang tepat, misal proses mengirim email membutuhkan beberapa waktu, jika menggunakan request response akan mempengaruhi performa aplikasi, gaya komunikasi yang tepat untuk case mengirim email adalah **notification**
+
+Selain itu ketika memilih gaya komunikasi antar service engineer harus memiliki format baku untuk komunikasi antar service, antar team dalam software engineering harus memiliki kesepakatan tentang format pesan yang dapat dikirim dan dapat terima. Formatnya dapat bermacam macam tergantung jenis komunikasi yang dipakai.
+
+#### Teknologi
+
+Ada banyak teknologi yang dapat digunakan dalam komunikasi antar service, nah di bawah ini adalah teknologi yang saat ini populer dan telah terbukti dapat digunakan untuk melakukan komunikasi antar service pada arsitektur microservice.
+
+**Rest — Representational State Transfer**Rest API merupakan suatu metode komunikasi antar service yang paling umum dan banyak digunakan, dengan teknologi ini memungkinkan service untuk meng-expose resource yang dimiliki.
+
+REST menggunakan protokol HTTP, memanfaatkan HTTP (GET/PUT/PATCH/DELETE/POST) method untuk manage resource, dengan menggunakan HTTP dapat menjadi nilai tambah karena protokol yang sudah lama ada dan memiliki ekosistem yang kuat, misal menggunakan mod_proxy untuk load balancing, varnish untuk http caching proxy dan masih banyak lagi. Rest menggunakan komunikasi jenis sync req-res
+
+**GraphQL **Teknologi baru yang menjadikan client side dapat melakukan query langsung ke server untuk mendapatkan data yang diinginkan. Digunakan untuk support arsitektur backend for frontend.
+
+Awalnya GraphQL hanya terbatas untuk bahasa JavaScript namun saat ini sudah banyak bahasa yang bisa digunakan untuk membangun server Graphql.
+
+**Remote procedure calls (RPC)**Merupakan suatu protokol yang memungkinkan kita melakukan akses atau menjalankan ke suatu prosedur/fungsi yang berada pada remote service lain.
+
+Salah satu implementasi paling popular dan modern dari RPC adalah gRPC, dibuat dengan memanfaatkan HTTP/2, memiliki performa yang impressive dan mudah untuk digunakan. Gaya komunikasi dengan menggunakan teknologi ini adalah synchronous request-response.
+
+[https://medium.com/media/57920e63e0b7b3adf01ae1a05a6d1c36/href](https://medium.com/media/57920e63e0b7b3adf01ae1a05a6d1c36/href)Saat ini saya memiliki YouTube Channel yang membahas tentang Software Engineering, **silakan kunjungi Youtube channel **[**Asdita Prasetya**](https://www.youtube.com/c/AsditaPrasetya1/) ️📽️💥
+
+**Message Broker **Merupakan middleware yang mengatur komunikasi antar service, dengan menggunakan message broker dapat melakukan implementasi komunikasi async.
+
+Terdapat 4 bagian utama dalam penggunaan message broker:
+
+- Consumer, service yang menerima message yang dikirim ke queue
+- Producer, service yang mengirim dan memproduksi message untuk dikirim ke queue.
+- Message, payload atau informasi berharga yang akan dikonsumsi oleh service lain.
+- Queue, berisi message yang akan dikirim ke consumer.
+
+Message broker akan menjamin message diterima oleh consumer, jika terjadi kegagalan broker akan mengirim kembali sampai pesan berhasil diterima atau sampai batas waktu yang ditentukan. Message broker yang popular saat ini adalah Kafka, RabbitMQ atau produk dari GCP/AWS
+
+#### **Kesimpulan**
+
+Pada arsitektur microservice antar service berkomunikasi melalui jaringan komputer, rawan terjadi kegagalan komunikasi antar service, terdapat banyak gaya komunikasi antar service, memilih gaya komunikasi antar service adalah hal yang wajib dalam implementasi microservice.
+
+![](https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=43d57be18996)

@@ -1,0 +1,78 @@
+---
+title: "Berkenalan dengan Cache dan Algoritma LRU Cache"
+description: "Photo by [Pietro De Grandi](https://unsplash.com/@peter_mc_greats?utm_source=medium&utm_medium=referral) on [Unsplash](https:..."
+date: '2021-05-05'
+author: "Asdita Prasetya"
+tags:
+  - "algorithms"
+  - "redis"
+  - "microservices"
+  - "cache"
+  - "tlab-general"
+---
+![](https://cdn-images-1.medium.com/max/1024/1*molTyQ-WrpCj8lzlAph62g.jpeg)Photo by [Pietro De Grandi](https://unsplash.com/@peter_mc_greats?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)Dalam pengembangan aplikasi modern, *cache* merupakan suatu hal yang lumrah untuk diterapkan. *Cache* berfungsi untuk meningkatkan *performance* dari suatu aplikasi. Salah *software* yang paling populer untuk mendukung penerapan *cache* di aplikasi adalah Redis.
+
+### Pengertian Cache
+
+*Cache* merupakan mekanisme penyimpanan data secara sementara dalam memori komputer, ketika ada permintaan data ke memori komputer maka data akan disediakan lebih cepat. Data yang disimpan merupakan data hasil proses komputasi yang dinilai memakan biaya tinggi dalam proses komputasinya (misal: koneksi ke basis data), atau bisa juga hasil data yang sering diakses dan jarang ada perubahan.
+
+#### Kenapa harus menggunakan Cache?
+
+- *Cache* berguna untuk meningkatkan *performance *aplikasi karena menyimpan data dalam memori komputer yang memiliki kecepatan tinggi.
+- *Cache* dapat meringankan kerja *processor*. Ketika ada 100 permintaan data yang identik di waktu yang bersamaan tanpa menerapkan *cache*, *processor* harus memproses dan kalkulasi 100 permintaan data. Jika menggunakan *cache*, *processor* hanya perlu memproses permintaan ke 1 lalu data hasil proses dan komputasi disimpan dalam *cache* komputer, di permintaan selanjutnya *processor* hanya perlu mengambil data yang telah disimpan dalam *cache*.
+
+![](https://cdn-images-1.medium.com/max/1024/1*kkhj1qGxaNkSdDI2z9tmOw.png)> “**Belajar Membuat Aplikasi Laravel Sesuai Standar Best Practice**” adalah panduan praktis untuk membangun aplikasi Laravel berkualitas tinggi dengan standar profesional.
+
+> Apa yang akan Anda pelajari?✔️ Menulis kode yang bersih, rapi, dan efisien.✔️ Merancang arsitektur aplikasi yang scalable & mudah dipelihara.✔️ Mengoptimalkan performa agar kuat menghadapi lonjakan traffic.✔️ Meningkatkan keamanan aplikasi untuk melindungi data pengguna.
+
+> 🚀 Siap leveling up kemampuan Laravel-mu?Pelajari best practice profesional & bangun aplikasi yang scalable, aman, dan efisien. [**Download eBook-nya sekarang**](https://codingtengahmalam.myr.id/ebook/laravel-best-practice)
+
+#### Studi Kasus penerapan Cache
+
+Untuk mempermudah memahami *cache*, saya akan memberikan sebuah contoh studi kasus penerapan *cache* pada suatu aplikasi.
+
+Misal pada aplikasi *e-commerce*, ketika kita akan membeli suatu produk maka kita diarahkan untuk melakukan akses ke halaman detail produk yang akan kita beli. Misal URL-nya adalah.
+
+GET /sarangeofficial/sarange-phyto-creamMisal untuk mendapatkan semua data yang nantinya ditampilkan pada halaman detail produk terdapat banyak proses yang berat, selain itu sistem juga harus melakukan akses ke beberapa *service*, di antaranya:
+
+- *Product service*
+- *Customer review service*
+- *Product recommendation service*
+
+Setiap *service* membutuhkan waktu 100ms untuk menyelesaikan tugasnya, jadi total yang waktu dibutuhkan 300ms/request untuk menampilkan semua data pada halaman detail produk.
+
+![](https://cdn-images-1.medium.com/max/942/1*SHj1Bt50_xCnqUd6Zp9iIw.png)Akses tanpa menggunakan cacheSuatu aplikasi e-commerce tidak mungkin hanya diakses 1 user pada suatu waktu. Misal ada 100 user melakukan akses ke halaman detail produk yang sama, maka total waktu yang dibutuhkan komputer untuk melayani permintaan dari 100 user adalah 30000ms.
+
+Tentu jika waktu yang dibutuhkan sebanyak itu maka user akan merasa bahwa aplikasi *e-commerce* yang diakses sangat lamban. Pada saat ini penggunaan *cache* akan sangat membantu dalam mempercepat proses.
+
+![](https://cdn-images-1.medium.com/max/1024/1*0xXSqzbRdpwW0mBTvfQa2w.png)Akses menggunakan cacheMisal untuk mengambil data dari *cache* hanya dibutuhkan waktu 20ms, user pertama tetap membutuhkan waktu 300ms sampai *request*-nya dipenuhi, namun *user* setelahnya hanya membutuhkan waktu 20ms saja pada saat melakukan akses ke halaman detail produk sampai semua data ditampilkan.
+
+Penggunaan *cache* merupakan salah satu solusi untuk meningkatkan *performance* aplikasi. Setiap solusi tentu ada *tradeoff* yang harus dibayarkan, salah satunya adalah *cost* dari memori itu sendiri. Selain itu data yang akan disimpan menjadi data *persistence* dan memiliki keterbatasan kapasitas penyimpanan.
+
+Maka dari itu untuk meningkatkan kinerja *cache* dan menekan biaya penggunaan terdapat beberapa algoritma untuk melakukan *management cache*, salah satunya adalah *Least Recently Used.*
+
+#### LRU: Least Recently used
+
+Merupakan suatu algoritma *page replacement* yang sering digunakan dalam arsitektur komputer. Algoritma ini menerangkan bagaimana komputer melakukan manajemen memori dan alokasi memori sehingga proses di dalamnya menjadi lebih cepat.
+
+> Jika diterjemahkan dalam bahasa Indonesia Lest recently used artinya “paling terakhir digunakan”
+
+Sesuai namanya, cara kerja algoritma LRU adalah mengurutkan posisi *cache* berdasarkan item yang paling baru digunakan dan menghapus *cache* yang paling lama tidak dipakai jika telah melebihi kapasitas penyimpanan yang telah ditentukan.
+
+Misal kita memiliki 5 kotak kosong dalam memori komputer, 5 kotak kosong ini akan digunakan sebagai tempat untuk menyimpan *cache* dan menerapkan algoritma LRU untuk melakukan *management* memori dan alokasi memori.
+
+Ketika *insert* data memiliki konsep yang mirip dengan Stack, setiap item baru akan berada pada urutan paling depan, dan akan menggeser +1 item yang sebelumnya menempati posisi depan jika ada.
+
+![](https://cdn-images-1.medium.com/max/511/1*KIEqJ9WwQ3Dt1iNr0ZGxCA.png)Proses put data dalam blok memori komputerLalu jika terjadi operasi *get* atau mengambil data dari *cache*, data yang baru saja dibaca akan di**pindah ke urutan paling depan**, data lainnya akan digeser ke belakang dengan index+1. Perhatikan gambar berikut ini untuk mempermudah memahami konsep ketika operasi *get* data.
+
+![](https://cdn-images-1.medium.com/max/561/1*ESw5voAZag7muraCsdAZ0w.png)Get and reorder cacheKonsep terakhir dari algoritma LRU adalah jika terjadi penambahan data tetapi kapasitas data yang dapat disimpan telah sesuai dengan kapasitas maksimal, maka data yang akan dihapus adalah data yang paling lama tidak digunakan, atau untuk memudahkan adalah data yang posisinya berada paling belakang.
+
+![](https://cdn-images-1.medium.com/max/561/1*c1GQT96GTOIbub-DUv4cBg.png)Proses put data jika memori telah penuhDi luar sana banyak aplikasi yang memanfaatkan Algoritma LRU, salah satunya adalah Redis yang merupakan aplikasi *Cache* paling populer saat ini. Untuk mengetahui bagaimana Redis menerapkan LRU dapat mengikuti artikel [berikut](https://redis.io/topics/lru-cache).
+
+#### Kesimpulan
+
+- *Cache* merupakan salah satu solusi untuk meningkatkan performa aplikasi.
+- *Cache* memanfaatkan memori sebagai media penyimpanan data.
+- Terdapat banyak algoritma untuk *management* data pada *cache*, salah satunya Algoritma *Least Recently used*.
+
+![](https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=45bb8dd62f10)[Berkenalan dengan Cache dan Algoritma LRU Cache](https://medium.com/tlabcircle/berkenalan-dengan-cache-dan-algoritma-lru-cache-45bb8dd62f10) was originally published in [TLabCircle](https://medium.com/tlabcircle) on Medium, where people are continuing the conversation by highlighting and responding to this story.

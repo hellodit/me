@@ -1,0 +1,55 @@
+---
+title: "Command Query Responsibility Segregation (CQRS)"
+description: "Photo by [Veit Hammer](https://unsplash.com/@derveit?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_sourc..."
+date: '2021-09-17'
+author: "Asdita Prasetya"
+tags:
+  - "event-driven-architecture"
+  - "database"
+  - "microservices"
+---
+![](https://cdn-images-1.medium.com/max/1024/0*eRXfnIjg5wyka-9U)Photo by [Veit Hammer](https://unsplash.com/@derveit?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)Aplikasi yang memiliki traffic besar perlu mendapatkan perhatian khusus, terlebih pada koneksi langsung ke database, terdapat berbagai macam teknik yang bisa digunakan untuk menjaga aplikasi tetap cepat dan responsif walaupun memiliki traffic besar, salah satunya adalah Command Query Responsibility Segregation (CQRS).
+
+#### Command Query Responsibility Segregation (CQRS)
+
+CQRS merupakan suatu konsep memisahkan penyimpanan data antara operasi command dan operasi query. Command dan query memiliki tanggung jawab yang berbeda, command bertanggung jawab untuk melakukan perubahan, penambahan, atau semua operasi yang berhubungan dengan write, query bertanggung jawab untuk menampilkan atau membaca data dari database.
+
+CQRS dapat membantu dalam melayani request yang besar, dengan menerapkan CQRS memungkinkan pemisahan beban antara operasi command dan query, masing-masing dapat di upgrade kapasitasnya secara independent.
+
+Untuk memaksimalkan CQRS penggunaan jenis database yang berbeda antara command dan query menjadi salah satu hal yang lumrah di implementasi.
+
+![](https://cdn-images-1.medium.com/max/1024/1*dCxp4SQceAudP4CTRLeh1A.jpeg)Database diagram, sumber: [https://europe-cloud.com/](https://europe-cloud.com/)Command dapat menggunakan database yang dapat memaksimalkan proses write, misal penggunaan relational database, sedangkan query dapat menggunakan document database yang telah terbukti memiliki performa tinggi untuk melayani proses read.
+
+Membicarakan CQRS erat kaitannya dengan penerapan arsitektur event-driven, selain itu untuk memaksimalkan CQRS dapat menggunakan domain driven design.
+
+#### Data Consistency
+
+Salah satu tantangan dalam penggunaan CQRS ada dalam menjaga database command dan query agar tetap sinkron, untuk melakukannya database command dapat berperan sebagai master dan database query berperan sebagai slave, semua perubahan pada database master akan di singkronasi-kan ke database slave.
+
+Untuk menjaga database command dan query tetap sinkron dapat menerapkan event driven architecture, ketika terdapat operasi pada model command maka model command melakukan **publish event** yang isinya melakukan perubahan pada database query. Operasi pada model command di database dan publish event harus dalam satu transaksi. Untuk mempelajari lebih lanjut menangani event dapat membaca [Event-driven architecture](https://aws.amazon.com/event-driven-architecture/).
+
+#### Simple Implementation
+
+Misalkan dalam suatu backend sistem ecommerce terdapat customer service, sebelum menerapkan CQRS pada repository layer semua fungsi terhubung dalam satu basis data dan tidak dipisahkan berdasarkan command maupun query.
+
+//Customer service repository layer  func CreateUser(ctx context.Context, u *model.User)func UpdateCustomer(ctx context.Context, u *model.User)func GetCustomer(ctx context.Context, id int)func GetCustomerOrder(ctc context.Context, id int)Setelah menerapkan CQRS semua fungsi dikelompokkan berdasarkan command atau query dan terhubung ke database yang berbeda.
+
+//Customer service query repository layer func (q *query) CreateUser(ctx context.Context, u *model.User)func (q *query) UpdateCustomer(ctx context.Context, u *model.User)//Customer service command repository layer func (c *command) GetCustomer(ctx context.Context, id int)func (c *command) GetCustomerOrder(ctc context.Context, id int)#### Keuntungan menerapkan CQRS
+
+- **Independent scaling.** Penggunaan CQRS memungkinkan untuk melakukan scaling salah satu operasi antara command atau query.
+- **Optimized data schemas.** Bagian command dapat menggunakan schema data yang di-optimasikan untuk operasi command, sedangkan pada bagian query dapat menggunakan schema yang berbeda untuk keperluan optimasi query.
+- **Separation of concerns.** Memisahkan antara operasi command dan query dapat menghasilkan model yang lebih mudah untuk di pelihara dan fleksibel dalam pengembangannya.
+- **Simpler queries.** Memanfaatkan document database pada penerapan query dapat memudahkan dan menyederhanakan operasi query
+
+#### Perlu diperhatikan dalam penerapan CQRS
+
+- **Complexity**. Dalam penerapan CQRS banyak hal yang perlu diperhatikan, misal menjaga data tetap sinkron, menangani event failure. dan termasuk di dalamnya adalah Event sourcing yang termasuk dalam event driven architecture.
+- **Messaging.** Penggunaan messaging tidak wajib pada penerapan CQRS, namun penerapan messaging umum di gunakan untuk proses publish event command.
+
+### Penutup
+
+CQRS merupakan konsep untuk memisahkan operasi command dan query, operasi command menggunakan database relational sedangkan operasi query menggunakan document database, dengan menerapkan CQRS aplikasi dapat dilakukan scaling sesuai dengan load yang diterima, masalah utama dalam penerapan CQRS adalah menjaga database command dan query tetap saling sinkron.
+
+Karena tergolong teknik yang kompleks sebaiknya CQRS tidak diterapkan pada keseluruhan sistem, CQRS cukup di terapkan pada bagian tertentu yang dinilai sepadan dengan kompleksitas yang akan dihadapi.
+
+![](https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=e3fb6d6b8f84)

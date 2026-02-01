@@ -1,0 +1,90 @@
+---
+title: "Belajar Microservices: Pengenalan"
+description: "#### Bagian pertama dari seri belajar microservice Photo by [Arif Riyanto](https://unsplash.com/@arifriyanto?utm_source=medium&utm_mediu..."
+date: '2020-12-27'
+author: "Asdita Prasetya"
+tags:
+  - "monolithic-architecture"
+  - "microservice-architecture"
+  - "software-architecture"
+---
+#### Bagian pertama dari seri belajar microservice
+
+![](https://cdn-images-1.medium.com/max/1024/0*E8EpaH8BzdlA2EqV)Photo by [Arif Riyanto](https://unsplash.com/@arifriyanto?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)Dalam pembuatan aplikasi banyak aspek yang perlu diperhatikan, salah satunya adalah arsitektur aplikasi, belakangan ini arsitektur *microservice *banyak di perbincangkan, arsitektur ini telah terbukti memecah kerumitan dalam pengembangan aplikasi, terutama aplikasi *web services, *telah banyak perusahaan yang sukses dengan implementasi *microservice *contohnya adalah [Netflix](https://www.nginx.com/blog/microservices-at-netflix-architectural-best-practices/), Amazon dan [eBay](https://dzone.com/articles/microservices-at-ebay-part-2-sharing-modules-acros).
+
+Selain arsitektur *microservice *ada juga arsitektur monolitik. arsitektur monolitik dan microservice memiliki kelebihan dan kekurangan masing — masing, penerapan-nya pun di sesuaikan dengan kebutuhan bisnis dari aplikasi.
+
+### Arsitektur Monolitik
+
+Jika yang dibahas mengenai arsitektur aplikasi, maka kita mengesampingkan bahasa yang digunakan dalam membangun aplikasi.
+
+Kita asumsi-kan akan** membuat suatu web service untuk aplikasi penyewaan sepeda yang akan di beri nama “Onthel”**, setelah melalui banyak rapat dengan tim menentukan fitur apa saja yang harus ada dan melakukan riset pasar maka jadilah arsitektur aplikasi yang akan dibuat seperti dibawah ini.
+
+![](https://cdn-images-1.medium.com/max/522/1*5myyqLpI3JQJ3_XN0RQtIw.png)Arsitektur monolitikDalam satu codebase aplikasi Onthel terdapat kode untuk menangani *user interface, business logic *dan *data access layer.* Selain itu memiliki satu database yang akan menyimpan data pengguna, order, sepeda dan riwayat perjalanan.
+
+Aplikasi dengan arsitektur monolitik sangatlah umum, membangun aplikasi dengan** arsitektur monolitik memiliki banyak keuntungan**, diantaranya adalah:
+
+- Aplikasi lebih mudah dalam proses pengembangan, hal ini karena kebanyakan code editor atau IDE yang kita gunakan lebih banyak yang fokus dalam mendukung proses pengembangan aplikasi dengan arsitektur monolitik
+- Lebih mudah dan cepat dalam proses pengujian, semudah menjalankan aplikasi lalu melakukan pengujian manual maupun dengan bantuan perangkat lunak lain seperti Selenium
+- Aplikasi lebih mudah dalam proses *deploy, *cara paling sederhana dengan menyalin kode ke server melalui Git atau dengan bantuan FTP client. Ketika proses telah selesai maka aplikasi yang kita buat sudah siap untuk dijalankan.
+- Mudah dalam proses *scaling*, misalnya menjalankan beberapa salinan dari aplikasi dengan menggunakan bantuan *load balancer.*
+
+Pada awal rilis dengan arsitektur monolitik semua berjalan dengan lancar, semua fitur berjalan, performa aplikasi juga sangat baik. Hari berganti hari, tahun pun berganti Onthel menjadi aplikasi yang sangat populer dan memiliki banyak pengguna, bahkan pengguna aplikasi Onthel hampir sama dengan pengguna aplikasi Gojek.
+
+Dengan suksesnya aplikasi Onthel maka tim developer berniat untuk menambahkan berbagai fitur baru, aplikasi yang awalnya sederhana kini menjadi aplikasi yang besar, dari 1000 baris kode kini bertambah 10x baris kode, belum lagi ditambah dengan *dependecy *semakin besar di aplikasi Onthel.
+
+Aplikasi Onthel kini menjadi aplikasi monolith yang besar dan memiliki banyak fitur di dalamnya, penerapan arsitektur monolith menjadi tidak cocok lagi karena:
+
+- Semakin besar aplikasi maka waktu untuk *start-up* menjadi semakin lama.
+- Akan terjadi kendala ketika menerapkan *continuous deployment.*
+- Aplikasi tidak dapat dikembangkan dengan bebas karena adanya kendala dalam menerapkan suatu bahasa dan adanya kendala dalam penentuan spesifikasi hardware yang cocok.
+- Jika suatu fitur mengalami gangguan maka fitur lain bisa saja terpengaruh, lebih parahnya aplikasi bisa *crash* sehingga mengganggu proses bisnis yang berjalan.
+
+Aplikasi yang besar dan memiliki banyak fitur akan sangat susah dikembangkan jika menggunakan arsitektur Monolithic maka dari itu solusinya adalah dengan menggunakan **arsitektur microservice.**
+
+### Arsitektur *Microservice*
+
+Pemisahan suatu aplikasi yang besar menjadi beberapa aplikasi yang lebih sederhana, beberapa aplikasi yang di pisah akan saling berkomunikasi untuk melayani pengguna. Aplikasi yang lebih kecil dan sederhana dalam bahasan *microservice akan disebut sebagai service.*
+
+Dalam implementasi *microservice *tiap *service *memiliki fungsi yang spesifik. Misalnya hanya memiliki fungsi untuk melayani pembayaran. Gambar dibawah ini menunjukan secara sederhana arsitektur microservice:
+
+![](https://cdn-images-1.medium.com/max/662/1*ZtS-hq4jort2XQr3fcALIw.png)Arsitektur *Microservice*Dalam implementasi-nya tiap service dapat memiliki basis data berbeda dengan service lain, tiap service akan saling berkomunikasi dengan service lain melalui API Gateway. Dengan menggunakan arsitektur *microservice *aplikasi akan menjadi:
+
+- Waktu *start-up* service menjadi lebih cepat.
+- Aplikasi yang semula rumit menjadi lebih sederhana dan mudah untuk dikembangkan.
+- Setiap *service* berjalan dengan *independent* tidak tergantung dengan *service* lain, jika ada satu *service* mengalami gangguan maka kecil kemungkinan aplikasi akan mengalami *crash*.
+- Performa *service* lebih handal karena setiap service dapat di install di hardware yang sesuai.
+- Aplikasi dapat dibuat dengan berbagai macam bahasa dan framework sesuai dengan kebutuhan service.
+- Dapat menggunakan berbagai jenis basis data penyimpanan.
+
+#### **Konsep utama microservice:**
+
+**Independent deployability**
+
+Ketika melakukan perubahan pada suatu service, service itu harus bisa di deploy dan di rilis ke user tanpa harus melakukan deployment service lain. Tentu tidak mudah untuk melakukan hal ini terutama jika service kita membutuhkan data dari service lain.
+
+Untuk mempermudah proses Independent deployability setiap service harus memiliki kontrak yang jelas bagaimana mereka saling berkomunikasi dan berbagai data.
+
+**Modeled around a business domain**
+
+Memodelkan tiap service sesuai dengan domain bisnis, misal membuat service khusus untuk menangani proses pembayaran. Dengan begini jika terjadi perubahan proses bisnis atau domain bisnis sebagai software engineer menjadi lebih mudah untuk menentukan service mana yang butuh pengembangan lanjutan.
+
+**Size**
+
+Kebanyakan dari kita pasti berpikir harus sekecil apa microservice, atau bagaimana cara mengukur microservice supaya ideal, atau harusnya sebesar apa suatu microservice?
+
+Menurut buku “Building Microservices, 2nd Edition — Sam Newman” cara paling tepat menentukan apakah service yang kita buat ukurannya sudah sesuai adalah dengan menanyakan pada diri kita sendiri. “Berapa service yang bisa kita tangani?”. Karena semakin banyak service yang kita punya semakin banyak hal juga yang perlu di manage dan semakin kompleks juga aplikasi.
+
+**Flexibilities**
+
+Dengan menggunakan microservice kita bisa memiliki banyak opsi saat ingin membuat mengembangan service, misal teknologi, hardware dan biaya yang dapat disesuaikan.
+
+Setiap arsitektur memiliki keunggulan dan kekurangan masing — masing, kekurangan menggunakan arsitektur microservice adalah:
+
+- Membutuhkan biaya yang mahal dalam pegembangan, biasanya digunakan untuk membeli lisensi teknologi yang digunakan, seperti teknologi untuk memudahkan error tracing atau teknologi untuk monitoring status aplikasi
+
+#### Kesimpulan
+
+Pemilihan penggunaan arsitektur sangatlah penting dalam pembuatan web service, baik monolitik maupun *mikroservice *memiliki kekurangan dan kelebihan masing — masing, aplikasi yang sederhana lebih cocok untuk menggunakan arsitektur monolitik, sedangkan aplikasi yang sekalanya besar sangat disarankan untuk menggunakan arsitektur *microservice.*
+
+![](https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=96c3bb66cf2c)

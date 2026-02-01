@@ -1,0 +1,48 @@
+---
+title: "Cara Membuat JSON Web Tokens tidak Valid"
+description: "#### Token yang masih valid ketika user telah logout dari sistem akan menimbulkan masalah keamanan, lalu bagaimana cara menjadikan token tidak valid?"
+date: '2021-08-04'
+author: "Asdita Prasetya"
+tags:
+  - "json-web-token"
+  - "rest-api"
+  - "jwt"
+  - "programming"
+---
+#### Token yang masih valid ketika user telah logout dari sistem akan menimbulkan masalah keamanan, lalu bagaimana cara menjadikan token tidak valid?
+
+![](https://cdn-images-1.medium.com/max/1024/0*SE-ysdelpfAOulQF)Photo by [Chaney Zimmerman](https://unsplash.com/@chaneyzimmerman?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)JSON Web Tokens (JWT) merupakan metode *authentication *yang paling banyak digunakan saat ini. Server akan memberikan JWT kepada client yang berhak, selanjutnya JWT disertakan pada setiap request yang dilakukan, dengan menggunakan JWT proses *authentication *menjadi *stateless*. tidak lagi diperlukan query ke basis data untuk melakukan validasi token, validasi dapat dilakukan dengan memastikan bahwa *signature/secret key *sesuai dan* token *belum kedaluwarsa.
+
+![](https://cdn-images-1.medium.com/max/600/1*CPDNw2zYdrfkxQLZubXsSg.png)Bagian JSON Web Token (JWT)Bentuk JWT berupa string panjang hasil enkripsi dari data yang dinilai rahasia, string ini terdiri dari header, claims dan signature yang dipisahkan dengan tanda titik (.), **JWT yang terlah di *generate *oleh server tidak dapat di modifikasi isinya**, JWT akan selalu valid selama *secret key* dan *expired date* masih sesuai.
+
+Ada satu kasus dalam penggunaan JWT, ketika melakukan logout JWT yang dimiliki seharusnya tidak dapat digunakan kembali pada saat itu juga. Lalu timbul pertanyaan dalam jiwa “**Bagaimana membuat JWT tidak bisa digunakan (*invalidate JWT*) dengan sengaja?**”
+
+Sempat terbesit untuk mengubah *secret key, *jika hal ini dilakukan setiap ada client melakukan *logout *maka semua token akan *invalid, *akan terjadi *logout *berjamaah tentunya.
+
+Hal ini akan merugikan *client *lain, misal ada *client *yang sedang melakukan proses transaksi, prosesnya akan gagal karena token yang digunakan telah invalid, meskipun JWT dari *client *ini masih belum kedaluwarsa.
+
+Ternyata pertanyaan yang muncul dibenaku menjadi pembahasan yang panjang di [Stack overflow](https://stackoverflow.com/questions/21978658/invalidating-json-web-tokens), setelah mempelajari dan melakukan riset ternyata terdapat beberapa cara yang bisa dilakukan untuk membuat JWT tidak bisa digunakan lagi setelah *client *melakukan *logout*, diantaranya adalah:
+
+#### Menghapus JWT dari client
+
+Metode paling mudah dilakukan dengan menghapus JWT yang tersimpan di *client* ketika melakukan request *logout*, namun metode ini memiliki kekurangan, meskipun telah di hapus JWT tetap valid dan dapat dapat digunakan sebelum masa berlakunya habis, kebocoran JWT dapat menjadi hal yang berbahaya mengakibatkan pihak lain dapat akses ke server walaupun *client* melakukan *logout* atau mengganti kata sandi.
+
+#### Membuat Lifetime JWT menjadi singkat
+
+Setiap token yang dihasilkan oleh server memiliki masa berlaku, lama masa berlaku tergantung bagaimana server mengaturnya, bisa saja beberapa jam, hari atau tahun. Buatlah masa berlaku menjadi sesingkat mungkin untuk memperkecil kemungkinan JWT masih valid ketika *client* melakukan *request logout.*
+
+#### Metode blacklist Token
+
+Walaupun *client* telah menghapus token yang ada di aplikasi ketika melakukan *request logout* akan terdapat jeda waktu untuk token tetap valid berdasarkan *expired_date,* jeda waktu yang ada bisa saja menjadi *security issues.*
+
+Dengan menggunakan metode blacklist token menjadikan JWT tidak dapat digunakan setelah *client* melakukan *request logout* pada saat itu juga, metode ini menyimpan JWT yang disertakan oleh *client* ke dalam *in-memory database* dengan *time-to-live* (TTL) berupa sisa dari waktu kedaluwarsa JWT, selanjutnya setiap *request* dilakukan pemeriksaan JWT dalam *in-memory database.*
+
+#### Metode Issued at
+
+Metode ini hanya dapat dilakukan jika JWT memiliki value iat (issued at), ketika *client* melakukan *request logout* server menyimpan *timestamp* pada basis data, anggap saja pada tabel *user* terdapat kolom *logout_at,* selanjutnya pada setiap request akan membandingkan *logout_at* pada basis data dengan iat yang dimiliki oleh user. Ketika value iat lebih tau dibandingkan value dari logout_atmaka token tidak valid.
+
+#### Closing
+
+Dari berbagai metode yang sudah aku tuliskan di atas semoga dapat menambah pengetahuan baru mengenai pengelolaan JSON Web Tokens (JWT), jika kamu memiliki metode lain jangan sungkan untuk berdiskusi melalui komentar atau dapat menghubungiku melalui [Twitter](http://twitter.com/asditaprasetya).
+
+![](https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=4e25615826e)

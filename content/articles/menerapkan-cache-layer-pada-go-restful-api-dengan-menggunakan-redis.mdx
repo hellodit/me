@@ -1,0 +1,99 @@
+---
+title: "Menerapkan Cache Layer pada Go Restful API dengan Menggunakan Redis"
+description: "#### Dengan menambahkan cache layer dapat meningkatkan performance pada Restful API Photo by [Harley-Davidson](https://unspla..."
+date: '2021-06-30'
+author: "Asdita Prasetya"
+tags:
+  - "redis"
+  - "cache"
+  - "golang"
+  - "tlab-development"
+  - "restful-api"
+---
+#### Dengan menambahkan cache layer dapat meningkatkan performance pada Restful API
+
+![](https://cdn-images-1.medium.com/max/1024/1*sTp6FtWYj5Nh-I8kLHQ2ow.jpeg)Photo by [Harley-Davidson](https://unsplash.com/@harleydavidson?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)Caching merupakan salah satu metode yang sering kali di lakukan untuk meningkatkan performa aplikasi, cache digunakan sebagai *secondary data store* untuk menyimpan data yang sering diakses oleh pengguna, cache menggunakan memori komputer sebagai media untuk menyimpan data sehingga memiliki kecepatan membaca data yang sangat cepat.
+
+Data yang disimpan dalam cache merupakan data hasil proses komputasi yang dinilai memakan biaya tinggi dalam prosesnya (misal: koneksi ke basis data), atau bisa juga data yang sering di akses dan jarang ada perubahan.
+
+Untuk mengetahui lebih jauh mengenai Cache saya sudah menulis penjelasan lebih lengkap pada artikel di bawah ini:
+
+[Berkenalan dengan Cache dan Algoritma LRU Cache](https://medium.com/tlabcircle/berkenalan-dengan-cache-dan-algoritma-lru-cache-45bb8dd62f10)
+
+### Context
+
+Artikel ini adalah implementasi dari artikel yang sudah saya tulis sebelumnya. saya sarankan untuk membaca artikel mengenai. [Berkenalan dengan Cache dan Algoritma LRU Cache](https://medium.com/tlabcircle/berkenalan-dengan-cache-dan-algoritma-lru-cache-45bb8dd62f104), untuk mempermudah pemahaman kita asumsikan bahwa service belum menerapkan seperti concurrent/paralel/thread dalam menangani proses.
+
+### Ilustrasi Restful API
+
+![](https://cdn-images-1.medium.com/max/1024/1*yyrxUDqdRSWShR-VwsLvgQ.png)#### Tanpa Menggunakan Cache Layer
+
+User akan melakukan request ke salah satu endpoint yang disediakan, kemudian diproses oleh service yang di tuju, setelah itu service akan menjalankan fungsional yang telah di tentukan, misal melakukan sanitasi input, selanjutnya melakukan proses query ke basis data dengan total waktu yang dibutuhkan kurang lebih selama 250ms, setelah itu akan mengembalikan hasil ke user.
+
+Jika dilakukan kalkulasi total waktu yang dibutuhkan dari request sampai dengan user respond adalah 300ms. dengan estimasi 250ms untuk proses query database dan 50ms untuk proses komputasi.
+
+Jika service di akses hanya puluhan user mungkin tidak akan ada masalah, namun masalah akan timbul jika ada ratusan user melakukan akses secara bersamaan. Salah satu sekenario terburuk adalah database mengalami crash karena tidak bisa menangani banyaknya request, karena setiap database memiliki batasan maksimal koneksi yang dapat di tangani dalam satuan waktu tertentu, misal PostgreSQL hanya bisa menangani 100 koneksi.
+
+#### **Menggunakan **Cache **Layer**
+
+Cache akan terasa manfaatnya jika terjadi request yang cukup banyak ke server, request pertama yang dilakukan oleh user akan sama seperti tanpa menggunakan cache, karena kondisi cache yang kosong. Setelahnya hasil akan disimpan dalam Cache untuk di akses oleh request selanjutnya.
+
+Request ke 2 dan seterusnya tidak akan melakukan query ke database, hal pertama yang dilakukan adalah mencari apakah data yang diminta ada di dalam Cache, jika ada data akan di ambil dan di kembalikan ke user, jika tidak proses akan berlanjut dengan melakukan query ke database.
+
+### Kebutuhan
+
+#### Database Scheman
+
+Untuk memudahkan *hands-on* implementasi Redis kita akan membuat sebuah sistem blog sederhana yang, dalam blog terdapat author yang bisa memiliki banyak post, setiap post hanya bisa dimiliki oleh satu author. Terdapat 2 tabel yaitu Authors dan Posts yang memiliki relasi one to many. Saya menyediakan file SQL yang terdiri dari 2 tabel berisi 5 author dan 1000 post yang dapat di unduh pada akhir artikel. Berikut ini adalah skema dari masing-masing tabel:
+
+[https://medium.com/media/5c21ba430f3593be343fa901e65778e8/href](https://medium.com/media/5c21ba430f3593be343fa901e65778e8/href)#### Redis
+
+Ada banyak produk yang dapat membantu developer untuk menambahkan cache layer pada aplikasi, diantaranya adalah Redis, ArangoDB, Azure Cosmos DB, Amazon DynamoDB dan Couchbase Server.
+
+Pada kesempatan kali ini kita akan menggunakan Redis untuk membantu dalam menerapkan cache layer. Redis merupakan database yang menggunakan memory sebagai media penyimpanan data (*data store*), selain itu juga dapat digunakan sebagai message broker dan masih banyak fitur lain yang dimiliki, untuk mempelajari lebih lanjut mengenai Redis dapat membuka halaman [Redis Introduction](https://redis.io/topics/introduction)
+
+Untuk terkoneksi ke database Redis pada cloud atau lokal di butuhkan Redis client, Redis sangat populer dan banyak digunakan sehingga hampir semua bahasa pemrograman populer telah memiliki Redis Client yang siap digunakan. bahasa yang akan saya gunakan kali ini adalah Go dan menggunakan [Go Redis](https://github.com/go-redis/redis) sebagai client untuk terkoneksi dengan Redis.
+
+#### Echo
+
+Echo merupakan web framework yang memiliki performa tinggi, mudah dikembangkan dan kode yang minimalist. Pada kesempatan kali ini saya akan menggunakan Echo untuk membuat RESTful API. Info lebih lengkap mengenai Echo dapat di akses melalui link [Echo Documentation](https://echo.labstack.com/g). Sebenarnya masih banyak framework lain yang dapat digunakan, silakan kamu pilih sesuai dengan kata hari dan sering di gunakan, karena kita akan lebih berfokus ke penerapan cache layer.
+
+#### Gorm
+
+Gorm merupakan library ORM untuk memudahkan melakukan query ke database, Gorm mendukung koneksi ke MySQL, PostgreSQL, SQLite dan masih banyak lagi. Developer Go pasti sudah tidak asing dengan Gorm. Untuk mengetahui informasi lebih lanjut mengenai Gorm dapat melakukan akses ke [Gorm Documentation](https://gorm.io/docs/)
+
+### Coding time
+
+#### Koneksi ke basis data
+
+Langkah pertama yang harus dilakukan adalah membuat koneksi ke basis data, Gorm memiliki banyak driver yang dapat membantu menghubungkan aplikasi yang kita buat ke berbagai macam basis data, untuk mengetahui basis data yang didukung oleh Gorm dapat membuka halaman [Connecting to a Database](https://gorm.io/docs/connecting_to_the_database.html) pada web dokumentasi Gorm.
+
+#### Membuat server dan endpoint
+
+Dengan menggunakan Echo saya dapat membuat *endpoint *dengan mudah, saat ini saya akan membuat 2 *endpoint *yaitu *fetch dan **fetch2. **fetch* tidak menerapkan cache sehingga melakukan query ke basis data pada setiap *request, **fetch2* yang menerapkan cache layer dengan menggunakan Redis. Kedua *endpoint *yang dibuat memiliki fungsi yang sama yaitu menampilkan daftar post dan dilengkapi dengan fitur pagination.
+
+Berikut ini adalah fungsi main untuk membuat endpoint
+
+[https://medium.com/media/f1e9cde84c4ded42f48670894a03f989/href](https://medium.com/media/f1e9cde84c4ded42f48670894a03f989/href)#### FetchArticle
+
+Setiap kali ada request untuk menampilkan data, akan dilakukan query ke basis data, lalu data akan di kembalikan ke user, jika ada 100 request per menit maka akan terjadi 100 query ke basis data. Hal ini tidak direkomendasikan karena melakukan query termasuk proses komputasi yang *expensive* dalam pemakaian sumber daya komputer.
+
+[https://medium.com/media/a72f11cc421303fa90c9fa17fd9b9271/href](https://medium.com/media/a72f11cc421303fa90c9fa17fd9b9271/href)#### *FetchArticleWithCache*
+
+Ketika pertama kali menerima request untuk menampilkan data sistem akan melakukan pencarian di cache layer, jika tidak ditemukan key yang sesuai maka akan dilakukan query ke database sesuai dengan limit dan offset yang diminta, setelah itu hasil hasil akan dikembalikan ke user dan di simpan ke cache.
+
+Jika pada saat melakukan pencarian di cache layer data ditemukan maka data akan segera dikembalikan ke user tanpa harus melakukan query ke basis data.
+
+[https://medium.com/media/9a16c404617d4023eed3fa3e4c3d8a7a/href](https://medium.com/media/9a16c404617d4023eed3fa3e4c3d8a7a/href)**Testing menggunakan dan tanpa menggunakan cache**
+
+![](https://cdn-images-1.medium.com/max/1024/1*_FbwW4nA2yTnjXOL-6cq9g.png)Backmark dengan dan tanpa cacheGambar nomor 1 merupakan hasil dari fungsi FetchArticle meminta data post dengan menggunakan pagination halaman ke 5 dimana tiap halaman menampilkan 25 item, proses untuk menampilkan *response *memakan waktu sebanyak 17ms. Gambar 2 adalah hasil dari fungsi FetchArticleWithCache dengan request yang sama dengan fungsi FetchArticle, proses menampilkan *response *membutuhkan waktu 13ms.
+
+Dari hasil percobaan yang saya lakukan terbukti bahwa dengan menggunakan cache layer dapat meningkatkan performa aplikasi.
+
+### Kesimpulan
+
+- Cache layer terbukti dapat meningkatkan performance aplikasi
+- Dengan menggunakan Redis dapat mempermudah untuk menambahkan cache layer pada aplikasi
+- Redis memiliki banyak fitur, tidak hanya terbatas untuk menerapkan cache
+
+![](https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=8b86c665c0e6)[Menerapkan Cache Layer pada Go Restful API dengan Menggunakan Redis](https://medium.com/tlabcircle/menerapkan-cache-layer-pada-go-restful-api-dengan-menggunakan-redis-8b86c665c0e6) was originally published in [TLabCircle](https://medium.com/tlabcircle) on Medium, where people are continuing the conversation by highlighting and responding to this story.

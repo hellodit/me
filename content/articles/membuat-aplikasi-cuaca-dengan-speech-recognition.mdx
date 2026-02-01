@@ -1,0 +1,65 @@
+---
+title: "Membuat Aplikasi Cuaca dengan Speech Recognition"
+description: "*Speech recognition* atau pengenalan suara merupakan salah satu dari implementasi kecerdasan buatan (AI). Teknologi *speech r..."
+date: '2021-02-03'
+author: "Asdita Prasetya"
+tags:
+  - "deep-learning"
+  - "artificial-intelligence"
+  - "tlab-development"
+  - "speech-recognition"
+---
+![](https://cdn-images-1.medium.com/max/1024/1*YjuBZlFPBWC9A1gR6O2CXA.jpeg)*Speech recognition* atau pengenalan suara merupakan salah satu dari implementasi kecerdasan buatan (AI). Teknologi *speech recognition* memungkinkan sistem komputer untuk memahami dan mengenali kata — kata yang diucapkan oleh manusia. *Speech recognition* digunakan sebagai inti dari aplikasi asisten pribadi yang saat ini ada di ponsel pintar maupun di komputer, misal Siri, Google Assistant dan Amazon Alexa.
+
+Komponen utama dari *Speech recognition *adalah suara itu sendiri. Suara yang dicapkan oleh manusia dikenal sebagai gelombang analog. Dari gelombang analog yang diterima *microphone* yang tersambung dengan komputer itulah untuk kemudian diubah menjadi gelombang elektrik melalui proses digitalisasi. Selanjutnya, hasil dari proses tersebut diekstrak datanya untuk dibandingkan nilainya dengan data model yang telah tersedia, sehingga sinyal digital dapat diterjemahkan menjadi teks.
+
+Pada umumnya proses pengenalan suara melalui 3 tahapan, di antaranya:
+
+#### Analisis Feature
+
+Dalam proses Analisis *Feature, signal* suara yang telah melalui proses digitalisasi dipotong per 10 milidetik untuk diambil nilai vektor yang mewakili.
+
+#### *Unit Matching System*
+
+Proses ini menggunakan pendekatan **Hidden Markov Model (HMM)**. Pendekatan ini mengasumsikan bahwa *signal* ucapan yang telah didigitalisasi jika dilihat dalam waktu yang lumayan pendek dapat dikatakan sebagai proses *stationary — *yaitu, proses yang mana properti statistik tidak berubah seiring waktu
+
+*Unit matching system* bertugas untuk mengenali dan mengamati *feature* dari sinyal digital suara dengan menggabungkan informasi dari model akustik, model bahasa dan *Lexicon*.
+
+- Model akustik merupakan kumpulan file yang mendeskripsikan *variability* vektor fitur.
+- Model bahasa merupakan sekumpulan data *probabilistic* yang ditetapkan untuk mewakili suatu urutan kata.
+- *Lexicon* adalah kosakata bahasa yang terdiri dari kata dan ungkapan. Leksikon juga bisa disebut kamus bahasa.
+
+#### *Post Processor*
+
+Pada proses ini *signal* suara yang telah berhasil diterjemahkan kemudian diproses kembali menjadi aplikasi yang diinginkan, misalnya jika digabungkan dengan perangkat IOT maka kita dapat mematikan atau menghidupkan listrik rumah menggunakan perintah suara.
+
+Jika ingin membaca lebih lanjut mengenai* Speech recognition,* dapat membaca [Deep Learning for NLP and Speech recognition](https://link.springer.com/book/10.1007/978-3-030-14596-5) dan [CMUSphinx Tutorial](https://cmusphinx.github.io/wiki/tutorial/).
+
+### Time to code!
+
+Setelah mengetahui cara kerja *speech recognition,* kita akan mencoba untuk membuat** aplikasi untuk mengetahui kondisi cuaca suatu daerah**.
+
+#### Software requirement
+
+- Python 3
+- Virtual environment
+- [SpeechRecognition](https://pypi.org/project/SpeechRecognition/) Python package
+- [Request](https://pypi.org/project/requests/) Python package
+
+### Time to code!
+
+Data cuaca yang akan digunakan diperoleh dari *weatherstack.* Kita akan mengambil data cuaca saat ini berdasarkan lokasi yang ditentukan. Namun, sebelum menggunakan *weatherstack* silakan mendaftar untuk mendapatkan *API key* yang digunakan untuk melakukan *request* ke *server weatherstack*.
+
+**get_weather_info** merupakan fungsi untuk mendapatkan data yang disediakan oleh [*weatherstack*](https://weatherstack.com/)* *mengunakan *module request* yang di-*hit* ke akses poin *weatherstack. *Jika terjadi *error,* pesan error tersebut akan dikembalikan sesuai dengan error yang terjadi. Untuk menggunakan API, diperlukan mendaftar ke [*weatherstack*](https://weatherstack.com/) dan menganti *access_key* pada *query string*.
+
+[https://medium.com/media/3c408fa64786edaf4885806f654c0ea5/href](https://medium.com/media/3c408fa64786edaf4885806f654c0ea5/href)Fungsi selanjutnya yang dibuat adalah **speech_to_text_microphone** yang merupakan fungsi untuk *speech recognition* yang mana suara sumber diambil dari hardware I/O computer. *Package SpeechRecognition *mendukung banyak *engine* untuk membuat aplikasi berbasis *Speech recognition.* Salah satunya adalah [Google Cloud Speech API ](https://cloud.google.com/speech/)dengan memanfaatkan API yang disediakan oleh Google.
+
+[https://medium.com/media/b785757b8795e65e2aae0c99235f445d/href](https://medium.com/media/b785757b8795e65e2aae0c99235f445d/href)Terakhir adalah menggabungkan kedua fungsi di *main block.* Jika tidak ada kesalaha, akan ditampilkan nama lokasi yang diucapkan dan data cuaca.
+
+[https://medium.com/media/a8dee40bc0268712e0412ed4219df243/href](https://medium.com/media/a8dee40bc0268712e0412ed4219df243/href)Untuk mencoba aplikasi yang telah dibuat, jalankan perinntah untuk melakukan eksekusi file Python. Berikut ini adalah video singkat hasil dari aplikasi yang telah dibuat.
+
+![](https://cdn-images-1.medium.com/max/600/1*-ZKnNwhHZuIXyApkNEETPw.gif)Speech recognitionKeseluruhan kode dapat dilihat di repository yang telah saya buat melalui link berikut ini
+
+[hellodit/speech-weather](https://github.com/hellodit/speech-weather)
+
+![](https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=482b42aeb341)[Membuat Aplikasi Cuaca dengan Speech Recognition](https://medium.com/tlabcircle/membuat-aplikasi-cuaca-dengan-speech-recognition-482b42aeb341) was originally published in [TLabCircle](https://medium.com/tlabcircle) on Medium, where people are continuing the conversation by highlighting and responding to this story.

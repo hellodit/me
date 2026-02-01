@@ -1,0 +1,85 @@
+---
+title: "Monitoring Aplikasi REST API Golang dengan Elastic APM Service"
+description: "Melakukan monitoring aplikasi pada *environment production* merupakan hal yang penting. Photo by [nine koepfer](https://unsplash.com/@en..."
+date: '2021-07-20'
+author: "Asdita Prasetya"
+tags:
+  - "rest-api"
+  - "coding"
+  - "tlab-development"
+  - "golang"
+  - "elasticsearch"
+---
+Melakukan monitoring aplikasi pada *environment production* merupakan hal yang penting.
+
+![](https://cdn-images-1.medium.com/max/1024/0*oXBNlPdeLngNcJCL)Photo by [nine koepfer](https://unsplash.com/@enka80?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)Dengan melakukan monitoring kita akan mendapatkan banyak informasi mengenai aplikasi yang sedang berjalan, informasi yang didapat juga merupakan informasi yang valid dan berdasarkan data, misal kita bisa mendapatkan data mengenai performa aplikasi, load time, latency, error rate dan lain sebagainya, dari data yang didapat team development akan mengetahui service mana yang perlu untuk di optimize.
+
+![](https://cdn-images-1.medium.com/max/498/1*pDrn53FexWbP9tuoud0rWw.gif)Saat ini saya memiliki YouTube Channel yang membahas tentang Software Engineering, **silakan kunjungi Youtube channel **[**Asdita Prasetya**](https://www.youtube.com/c/AsditaPrasetya1/) ️📽️💥
+
+Ada banyak tools yang dapat digunakan sebagai APM service misal [Logz.io](http://logz.io/), SolarWinds AppOptics, AppDynamics, dan Stagemonitor. Namun kali ini kita akan menggunakan Elastic APM Service karena gratis, open source dan mendukung banyak bahasa pemrograman.
+
+Pada pembahasan kali ini saya akan berfokus pada:
+
+- Instalasi dan konfigurasi Elastic APM service di [localhost](http://localhost)
+- Membuat REST API sederhana menggunakan bahasa GO dan menghubungkannya dengan Elastic APM Service.
+
+### Instalasi Elastic APM Service
+
+![](https://cdn-images-1.medium.com/max/1024/1*N0BwYXywBaO12nFDj6ubAA.png)Elastic APM ServicePastikan kalian sudah memiliki docker di localhost, langka selanjutnya adalah clone repository dibawah ini, dan ikuti langkah yang telah dijelaskan oleh pemilik repository:
+
+[GitHub - deviantony/docker-elk: The Elastic stack (ELK) powered by Docker and Compose.](https://github.com/deviantony/docker-elk)
+
+Singkatnya dengan menuliskan perintah docker-compose up -d elasticsearch, kibana, dan apm-server akan berjalan dengan pengaturan default. Setelah itu kita dapat mengunjungi Kibana Dashboard di [**http://localhost:5601/**](http://localhost:5601/)** **login dengan menggunakan username elastic dan password changeme
+
+![](https://cdn-images-1.medium.com/max/1024/1*HMAQ3y3_nnyUNL5mcZKZmQ.png)Kibana home dashboardJika berhasil kita akan diarahkan ke halaman home Kibana Dashbord, di sinilah nantinya data hasil monitoring aplikasi dapat kita lihat, lebih tepatnya pada menu APM Service.
+
+### Membuat REST API dengan Go
+
+Untuk memudahkan dalam membuat REST API kita akan menggunakan [Echo Framework](https://echo.labstack.com/), pada project ini akan ada 2 endpoint, yaitu:
+
+- GET "/" untuk menampilkan hello word.
+- GET "/posts" untuk menampilkan daftar artikel yang diambil dari [https://jsonplaceholder.typicode.com/posts](https://jsonplaceholder.typicode.com/posts), pada endpoint ini kita akan melakukan simulasi tracing transaction.
+
+#### Code time
+
+Karena service yang akan dibuat cukup sederhana maka kita hanya perlu menaruh semua kode dalam satu file yaitu main.go, use case ini tidak cocok untuk service yang kompleks, jika service cukup kompleks bisa melakukan implementasi clean architecture, design pattern dan atau pattern yang lainnya.
+
+[https://medium.com/media/1140fb1e1bd19bdbcf6c6735e0e73139/href](https://medium.com/media/1140fb1e1bd19bdbcf6c6735e0e73139/href)Dengan menggunakan Echo kita dimudahkan untuk membuat 2 endpoint yang sudah aku jelaskan sebelumnya, untuk menghubungkan aplikasi dengan Elastic APM service dibutuhkan APM Go Agent, untungnya kita menggunakan Echo.
+
+Echo telah terintegrasi dengan APM service, developer dapat menggunakan middleware yang ada, sehingga semua request response akan secara otomatis di kirim ke APM Service tanpa perlu mendefinisikan secara eksplisit di tiap fungsi handler. Cukup mendaftarkan middleware dengan menggunakan sintak e.Use(apmechov4.Middleware()) .
+
+Untuk menghubungkan Echo dengan APM service kita perlu menambahkan module apm-agent ke project.
+
+[elastic/apm-agent-go](https://github.com/elastic/apm-agent-go)
+
+#### The Post Handler
+
+e.GET("/posts") merupakan endpoint yang akan menampilkan daftar artikel dengan sumber data [jsonplaceholder.com](http://jsonplaceholder.com) nama fungsi fetchPostHandler yang akan memanggil fungsi **requestToAPIServer **dan **doBackgroundProccess**
+
+[https://medium.com/media/af6f088c00bb70dd086b8639529c3bef/href](https://medium.com/media/af6f088c00bb70dd086b8639529c3bef/href)**requestToAPIServer **memiliki tugas mengirim request ke [jsonplaceholder.com](http://jsonplaceholder.com) untuk mendapatkan data articles, pada fungsi ini terdapat time.Sleep(30 *time.Millisecond) yang artinya proccess akan ditunda selama 30 milliseconds, penundaan 30 milliseconds bermangkud untuk membuat seolah waktu yang dibutuhkan untuk mendapatkan data articles cukup lama.
+
+Pada fungsi ini juga menerapkan transactions tracing, menggunakan fungsi **span** yang di tandai dengan sintak apm.StartSpan() befungsi untuk menandai atau memberi nama suatu aktifitas dalam transaksi, fungsi ini juga dapat digunakan untuk mengukur *database query.*
+
+Selain itu juga terdapat fungsi doBackgroundProccess yang memiliki waktu tunggu selama 60 milliseconds, fungsi ini dibuat untuk seolah menjakankan suatu proses yang berat.
+
+Simpan semua part sintak yang ada dalam satu file dan beri nama main.go selanjutnya jalankan dengan menggunakan go run mian.go setelah itu dapat melakukan akses ke endpoint yang telah dibuat.
+
+Dengan melakukan akses ke GET http://localhost:1313/posts akan menampilkan daftar artikel denga formar JSON.
+
+![](https://cdn-images-1.medium.com/max/856/1*-Olajn1HUrMvNLVQ1Dsv9A.png)Daftar artikel JSONSemua data request dan respond dari aplikasi yang telah kita buat dapat di lihat melalui Dashboard Kibana, mari kita lihat data apa saja yang muncul dengan akses ke [**http://localhost:5601/**](http://localhost:5601/)
+
+![](https://cdn-images-1.medium.com/max/1024/1*9IMV0OoqfXKv_iuGlwc0PQ.png)List attached serviceSecara default akan menampilkan nama file yang sedang terhubung ke Elastic APM Service namun kita bisa menggantinya dengan menambahkan *environtment variabel ****ELASTIC_APM_SERVICE_NAME***
+
+![](https://cdn-images-1.medium.com/max/1024/1*ne29FeMg2_mz8VdNlb5q4A.png)The detailed service attachedHalaman detail dari service yang telah terhubung dengan Elasctic APM Sevice, akan tampil banyak data sepeti data transaksi, latency, throuhtput, dan timeline dari request yang masuk ke server.
+
+![](https://cdn-images-1.medium.com/max/1024/1*XLr7S7eAmG1d-bmy7fmzpg.png)Span transaction timeline detailData diatas menunjukan bagaimana endpoint post berjalan, dapat kita lihat terdapat timeline dan juga nama proccess yang telah kita definisikan di menu handler, selain timeline juga ditampilkan metadata, logs dan masih banyak lagi.
+
+Untuk mengetahui data apa saja yang dapat direkam, silahkan mencoba sendiri di localhost masing - masing, semoga bermanfaat!
+
+### Summary
+
+- Hanya dibutuhkan 3 langkah untuk melalukan integrasi aplikasi dengan Elastic APM Service. 1) Setup Elasticsearch, Kibana dan APM Service. 2) Tambahkan Elastic APM Go agent package. 3) Visualisasi melalui Kibana
+- Elastic APM Service mendukung tracing database query, error tracing, distribute tracing, transaction tracing dan masih banyak lagi.
+- Elastic APM Service mendukung berbagai framework popular
+
+![](https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=80505cfc70bb)[Monitoring Aplikasi REST API Golang dengan Elastic APM Service](https://medium.com/tlabcircle/monitoring-aplikasi-rest-api-golang-dengan-elastic-apm-service-80505cfc70bb) was originally published in [TLabCircle](https://medium.com/tlabcircle) on Medium, where people are continuing the conversation by highlighting and responding to this story.
