@@ -1,3 +1,4 @@
+import { HomeArticles } from '@/components/pages/home/HomeArticles'
 import { HomeContact } from '@/components/pages/home/HomeContact'
 import { HomeHero } from '@/components/pages/home/HomeHero'
 import { HomeProjects } from '@/components/pages/home/HomeProjects'
@@ -18,7 +19,7 @@ export default function Page() {
     <div className="mx-auto pt-6 pb-12 max-w-160 space-y-12 sm:py-10">
       <HomeHero />
       <HomeProjects />
-      <HomeSocials />
+      <HomeArticles />
       <HomeContact />
     </div>
   )

@@ -13,7 +13,7 @@ interface ProjectCardProps {
 }
 
 const cardBaseClassName =
-  'group flex min-h-0 flex-1 flex-col rounded-lg border border-layout-primary bg-layout-secondary-active p-4 outline-none transition-all duration-200 hover:border-zinc-300 hover:shadow-sm'
+  'group flex min-h-0 flex-1 flex-col rounded-lg border border-layout-primary bg-layout-secondary-active p-4 outline-none transition-all duration-300 hover:border-zinc-300 hover:ring-3 hover:ring-zinc-100 focus-visible:border-zinc-300 focus-visible:ring-3 focus-visible:ring-zinc-100'
 
 export function ProjectCard({
   title,

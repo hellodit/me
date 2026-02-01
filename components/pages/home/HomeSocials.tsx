@@ -49,7 +49,6 @@ export function HomeSocials() {
     <section>
       <SectionHeader
         heading={findMeOn.heading}
-        text={findMeOn.text}
       />
 
       <ul className="flex flex-wrap items-center gap-2.5">

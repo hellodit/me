@@ -3,6 +3,7 @@ import { AnimatedRole } from '@/components/AnimatedRole'
 import { IconFlagIndonesia } from '@/components/icons/flags/IconFlagIndonesia'
 import { HomeHeroActions } from '@/components/pages/home/HomeHeroActions'
 import profileData from '@/data/profile.json'
+import { HomeSocials } from './HomeSocials'
 
 export function HomeHero() {
   const { name, avatar, greeting, roles, location, description } = profileData
@@ -37,7 +38,8 @@ export function HomeHero() {
         <p>{description}</p>
       </div>
 
-      <HomeHeroActions />
+      <HomeSocials />
+      {/* <HomeHeroActions /> */}
     </section>
   )
 }

@@ -1,5 +1,4 @@
 import { ProjectsSlider } from '@/components/pages/home/ProjectsSlider'
-import { SectionHeader } from '@/components/SectionHeader'
 import { getAllProjects } from '@/utils/mdx'
 import Link from 'next/link'
 
@@ -8,14 +7,13 @@ export function HomeProjects() {
 
   return (
     <section className="@container/projects">
-      <SectionHeader
-        heading="Projects"
-        text="These are my personal projects, both past and ongoing:"
-      />
-
-      <ProjectsSlider projects={projects} />
-
-      <div className="mb-4 mt-5 flex justify-center">
+      <div className="mb-4 flex items-center justify-between gap-4">
+        <div>
+          <h2 className="font-sans font-medium text-md text-black tracking-[0.02em] uppercase">
+            Projects
+          </h2>
+          <p className="mt-2 text-md">These are my personal projects, both past and ongoing:</p>
+        </div>
         <Link
           href="/projects"
           className="group relative block rounded-lg border border-layout-primary bg-layout-secondary-active p-2 outline-none transition-colors hover:border-zinc-300 focus-visible:border-zinc-300"
@@ -23,6 +21,8 @@ export function HomeProjects() {
           <span className="font-xs text-black">View Projects</span>
         </Link>
       </div>
+
+      <ProjectsSlider projects={projects} />
     </section>
   )
 }
