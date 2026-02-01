@@ -39,6 +39,7 @@ export default function ServicePage() {
                     thumbnail={service.frontmatter.thumbnail}
                     price={service.frontmatter.price}
                     originalPrice={service.frontmatter.originalPrice}
+                    orderUrl={service.frontmatter.orderUrl}
                   />
                 </li>
               )

@@ -27,6 +27,7 @@ export interface ServiceFrontmatter {
   thumbnail: string
   price: string
   originalPrice: string
+  orderUrl?: string
 }
 
 function parseFrontmatter(content: string): { frontmatter: Record<string, unknown>; body: string } {

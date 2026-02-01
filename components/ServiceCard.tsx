@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { cn } from '@/utils/css'
 
 interface ServiceCardProps {
@@ -6,6 +7,7 @@ interface ServiceCardProps {
   thumbnail: string
   price: string
   originalPrice: string
+  orderUrl?: string
   className?: string
 }
 
@@ -17,10 +19,11 @@ export function ServiceCard({
   thumbnail,
   price,
   originalPrice,
+  orderUrl,
   className,
 }: ServiceCardProps) {
-  return (
-    <div className={cn(cardBaseClassName, className)}>
+  const content = (
+    <>
       <div className="relative w-full aspect-video bg-layout-secondary-contrast overflow-hidden">
         <Image
           src={thumbnail}
@@ -39,6 +42,21 @@ export function ServiceCard({
           <span className="text-xs text-tertiary line-through sm:text-sm">{originalPrice}</span>
         </div>
       </div>
-    </div>
+    </>
   )
+
+  if (orderUrl) {
+    return (
+      <Link
+        href={orderUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cn(cardBaseClassName, className)}
+      >
+        {content}
+      </Link>
+    )
+  }
+
+  return <div className={cn(cardBaseClassName, className)}>{content}</div>
 }
