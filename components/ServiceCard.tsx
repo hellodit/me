@@ -10,7 +10,7 @@ interface ServiceCardProps {
 }
 
 const cardBaseClassName =
-  'group flex flex-col rounded-lg border border-layout-primary bg-layout-secondary-active overflow-hidden transition-all duration-300 hover:border-accent hover:ring-2 hover:ring-accent/20 focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent/20'
+  'group flex flex-col h-full w-full rounded-lg border border-layout-primary bg-layout-secondary-active overflow-hidden transition-all duration-300 hover:border-accent hover:ring-2 hover:ring-accent/20 focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent/20'
 
 export function ServiceCard({
   title,
@@ -27,7 +27,7 @@ export function ServiceCard({
           alt={title}
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-105"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 640px) 100vw, 50vw"
         />
       </div>
       <div className="p-3 flex flex-col flex-1 sm:p-4">

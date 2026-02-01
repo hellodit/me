@@ -1,17 +1,17 @@
 import { ServiceCard } from '@/components/ServiceCard'
-import servicesData from '@/data/services.json'
+import { getAllServices } from '@/utils/mdx'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Service - Asdita Prasetya',
   description: 'Digital products and services by Asdita Prasetya',
   alternates: {
-    canonical: '/service',
+    canonical: '/services',
   },
 }
 
 export default function ServicePage() {
-  const { products } = servicesData
+  const services = getAllServices()
 
   return (
     <div className="pt-6 pb-12 space-y-12 sm:py-10">
@@ -24,22 +24,25 @@ export default function ServicePage() {
           Koleksi produk digital berkualitas untuk membantu perjalanan coding Anda:
         </p>
 
-        {products.length === 0 ? (
+        {services.length === 0 ? (
           <p className="text-sm leading-[1.75] text-tertiary sm:text-md">
             Tidak ada produk tersedia saat ini.
           </p>
         ) : (
-          <ul className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {products.map((product) => (
-              <li key={product.id} className="flex">
-                <ServiceCard
-                  title={product.title}
-                  thumbnail={product.thumbnail}
-                  price={product.price}
-                  originalPrice={product.originalPrice}
-                />
-              </li>
-            ))}
+          <ul className="grid grid-cols-1 gap-4 sm:gap-4 sm:grid-cols-2 items-stretch">
+            {services.map((service) => {
+              if (!service) return null
+              return (
+                <li key={service.slug} className="flex w-full h-full">
+                  <ServiceCard
+                    title={service.frontmatter.title}
+                    thumbnail={service.frontmatter.thumbnail}
+                    price={service.frontmatter.price}
+                    originalPrice={service.frontmatter.originalPrice}
+                  />
+                </li>
+              )
+            })}
           </ul>
         )}
       </section>

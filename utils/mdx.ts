@@ -21,6 +21,13 @@ export interface ProjectFrontmatter {
   tags?: string[]
 }
 
+export interface ServiceFrontmatter {
+  title: string
+  thumbnail: string
+  price: string
+  originalPrice: string
+}
+
 function parseFrontmatter(content: string): { frontmatter: Record<string, unknown>; body: string } {
   const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/
   const match = content.match(frontmatterRegex)
@@ -142,4 +149,37 @@ export function getAllProjects() {
       if (!a || !b) return 0
       return new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
     })
+}
+
+export function getServiceSlugs() {
+  const servicesDir = join(contentDirectory, 'service')
+  try {
+    return readdirSync(servicesDir)
+      .filter((file) => file.endsWith('.mdx'))
+      .map((file) => file.replace(/\.mdx$/, ''))
+  } catch {
+    return []
+  }
+}
+
+export function getServiceBySlug(slug: string) {
+  const fullPath = join(contentDirectory, 'service', `${slug}.mdx`)
+  try {
+    const fileContents = readFileSync(fullPath, 'utf8')
+    const { frontmatter, body } = parseFrontmatter(fileContents)
+    return {
+      slug,
+      frontmatter: frontmatter as ServiceFrontmatter,
+      content: body,
+    }
+  } catch {
+    return null
+  }
+}
+
+export function getAllServices() {
+  const slugs = getServiceSlugs()
+  return slugs
+    .map((slug) => getServiceBySlug(slug))
+    .filter((service) => service !== null)
 }
