@@ -35,11 +35,13 @@ export default function ServicePage() {
               return (
                 <li key={service.slug} className="flex w-full h-full">
                   <ServiceCard
+                    slug={service.slug}
                     title={service.frontmatter.title}
                     thumbnail={service.frontmatter.thumbnail}
                     price={service.frontmatter.price}
                     originalPrice={service.frontmatter.originalPrice}
                     orderUrl={service.frontmatter.orderUrl}
+                    badge={service.frontmatter.badge}
                   />
                 </li>
               )

@@ -28,6 +28,8 @@ export interface ServiceFrontmatter {
   price: string
   originalPrice: string
   orderUrl?: string
+  badge?: string | string[]
+  order?: number
 }
 
 function parseFrontmatter(content: string): { frontmatter: Record<string, unknown>; body: string } {
@@ -72,6 +74,11 @@ function parseFrontmatter(content: string): { frontmatter: Record<string, unknow
     // Parse booleans
     if (value === 'true') value = true
     if (value === 'false') value = false
+
+    // Parse numbers
+    if (typeof value === 'string' && value !== '' && /^-?\d+$/.test(value)) {
+      value = Number(value)
+    }
 
     frontmatter[key] = value
   }
@@ -184,4 +191,9 @@ export function getAllServices() {
   return slugs
     .map((slug) => getServiceBySlug(slug))
     .filter((service) => service !== null)
+    .sort((a, b) => {
+      const orderA = a?.frontmatter.order ?? Number.POSITIVE_INFINITY
+      const orderB = b?.frontmatter.order ?? Number.POSITIVE_INFINITY
+      return orderA - orderB
+    })
 }
